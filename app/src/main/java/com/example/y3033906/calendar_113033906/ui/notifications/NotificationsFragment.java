@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.y3033906.calendar_113033906.MainActivity;
+import com.example.y3033906.calendar_113033906.MyApplication;
 import com.example.y3033906.calendar_113033906.R;
 import com.example.y3033906.calendar_113033906.ui.notifications.calendar.CalendarAdapter;
 
@@ -50,7 +51,7 @@ public class NotificationsFragment extends Fragment {
             }
         });
         calendarGridView = root.findViewById(R.id.calendarGridView);
-        mCalendarAdapter = new CalendarAdapter(this);
+        mCalendarAdapter = new CalendarAdapter(MyApplication.getAppContext());
         calendarGridView.setAdapter(mCalendarAdapter);
         titleText.setText(mCalendarAdapter.getTitle());
         return root;
