@@ -1,4 +1,4 @@
-package com.example.y3033906.calendar_113033906.calendar;
+package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.y3033906.calendar_113033906.R;
-import com.example.y3033906.calendar_113033906.ui.notifications.NotificationsViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class CalendarAdapter extends BaseAdapter {
         public TextView dateText;
     }
 
-    public CalendarAdapter(NotificationsViewModel context){
+    public CalendarAdapter(Context context){
         mContext = context;
         mLayoutInflater = LayoutInflater.from(mContext);
         mDateManager = new DateManager();
