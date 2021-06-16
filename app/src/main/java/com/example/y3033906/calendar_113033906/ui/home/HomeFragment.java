@@ -1,5 +1,7 @@
 package com.example.y3033906.calendar_113033906.ui.home;
 
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +21,14 @@ import com.example.y3033906.calendar_113033906.R;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,16 +54,17 @@ public class HomeFragment extends Fragment {
         textView = root.findViewById(R.id.textView);
         button = root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 try {
-                    //httpRequest("http://www.bluecode.jp/test/api.php");
                     httpRequest("https://api.tronalddump.io/random/quote");
                 } catch (Exception e) {
                     Log.e("Hoge", e.getMessage());
                 }
             }
         });
+
         return root;
     }
 
@@ -66,11 +76,8 @@ public class HomeFragment extends Fragment {
         //request生成
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("Accept", "*/*")
                 .build();
-
-        //final OkHttpClient client = new OkHttpClient.Builder().build();
-        //final Response response = client.newCall(request).execute();
-        //final String resultStr = response.body().string();
 
         //非同期リクエスト
         client.newCall(request)
@@ -94,7 +101,7 @@ public class HomeFragment extends Fragment {
                         try{
                             //jsonパース
                             JSONObject json = new JSONObject(jsonStr);
-                            final String value = json.getString("status");
+                            final String value = json.getString("value");
 
                             //親スレッドUI更新
                             Handler mainHandler = new Handler(Looper.getMainLooper());
