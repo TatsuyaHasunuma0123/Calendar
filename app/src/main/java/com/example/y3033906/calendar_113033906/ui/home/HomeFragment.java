@@ -1,5 +1,6 @@
 package com.example.y3033906.calendar_113033906.ui.home;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -56,7 +57,9 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         textView = root.findViewById(R.id.textView);
+        textView.setBackgroundColor(Color.BLACK);
         textView2 = root.findViewById(R.id.textView2);
+        textView2.setBackgroundColor(Color.BLACK);
         button = root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -126,15 +129,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void translate(String value){
+        System.out.println(value);
         //OkHttpClinet生成
         OkHttpClient client = new OkHttpClient();
         String url ="https://script.google.com/macros/s/AKfycbzuDmbOrcwJBrUtvz8bQ13rRR4BZgYdjPy3850B089425l5AZ3D-yV1LiVarQYrkmp5Zw/exec";
+        //String url = "https://824a39e2b0c5.ngrok.io/api/test";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
 
         //set Request parameters
         Map<String, String> params = new HashMap<>();
         params.put("text", value);
-        params.put("source", "ja");
+        params.put("source", "en");
         params.put("target", "ja");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             params.forEach(urlBuilder::addQueryParameter);
@@ -142,8 +147,8 @@ public class HomeFragment extends Fragment {
 
         //request生成
         Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Accept", "*/*")
+                .url(urlBuilder.build())
+                .addHeader("Accept","*/*")
                 .build();
 
         //非同期リクエスト
@@ -167,16 +172,17 @@ public class HomeFragment extends Fragment {
                         //JSON処理
                         try{
                             //jsonパース
-                            JSONObject json = new JSONObject(jsonStr);
+                            //JSONObject json = new JSONObject(jsonStr);
                             //final String value = json.getString("value");
-                            //translate(value);
+
 
                             //親スレッドUI更新
                             Handler mainHandler = new Handler(Looper.getMainLooper());
                             mainHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //textView.setText(value);
+                                    System.out.println(jsonStr);
+                                    textView2.setText(jsonStr);
                                 }
                             });
 
