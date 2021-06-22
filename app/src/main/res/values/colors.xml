@@ -15,4 +15,5 @@
     <color name="redColor">#F00</color>
     <color name="whiteColor">#FFF</color>
     <color name="blackColor">#000</color>
+    <color name="background">#EDEDED</color>
 </resources>
