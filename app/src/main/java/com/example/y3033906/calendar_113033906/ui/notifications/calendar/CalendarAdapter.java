@@ -13,15 +13,16 @@ import com.example.y3033906.calendar_113033906.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class CalendarAdapter extends BaseAdapter {
-    private List<Date> dateArray = new ArrayList();
-    private Context mContext;
-    private DateManager mDateManager;
-    private LayoutInflater mLayoutInflater;
+    private List<Date> dateArray;
+    private final Context mContext;
+    private final DateManager mDateManager;
+    private final LayoutInflater mLayoutInflater;
 
     //カスタムセルを拡張したらここでWigetを定義
     private static class ViewHolder {
@@ -54,19 +55,16 @@ public class CalendarAdapter extends BaseAdapter {
 
         //セルのサイズを指定
         float dp = mContext.getResources().getDisplayMetrics().density;
-        AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth()/7 - (int)dp, (parent.getHeight() - (int)dp * mDateManager.getWeeks() ) / mDateManager.getWeeks());
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth()/7 - (int)dp, parent.getWidth()/7 - (int)dp - (parent.getWidth()/7 - (int)dp) /8 );
         convertView.setLayoutParams(params);
 
-        //日付のみ表示させる
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
-        holder.dateText.setText(dateFormat.format(dateArray.get(position)));
-
-        //当月以外のセルをグレーアウト
-        if (mDateManager.isCurrentMonth(dateArray.get(position))){
-            convertView.setBackgroundColor(Color.WHITE);
-        }else {
-            convertView.setBackgroundColor(Color.LTGRAY);
+        if((DateManager.dayOfWeek <= position) && (position < DateManager.dayOfWeek + DateManager.dayOfMonth)){
+            //日付のみ表示させる
+            SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
+            holder.dateText.setText(dateFormat.format(dateArray.get(position)));
         }
+        else
+            holder.dateText.setText("");
 
         //日曜日を赤、土曜日を青に
         int colorId;
@@ -99,7 +97,7 @@ public class CalendarAdapter extends BaseAdapter {
 
     //表示月を取得
     public String getTitle(){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM", Locale.US);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MMMM", Locale.US);
         return format.format(mDateManager.mCalendar.getTime());
     }
 

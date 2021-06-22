@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 public class DateManager {
-    Calendar mCalendar;
+    static Calendar mCalendar;
+    static Integer dayOfWeek,dayOfMonth;
+    static List<Integer> intDays;
 
     public DateManager(){
         mCalendar = Calendar.getInstance();
@@ -19,17 +21,19 @@ public class DateManager {
 
         //GridViewに表示するマスの合計を計算
         int count = getWeeks() * 7 ;
-
+        dayOfMonth = mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         //当月のカレンダーに表示される前月分の日数を計算
         mCalendar.set(Calendar.DATE, 1);
-        int dayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) - 1;
+        dayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) - 1;
         mCalendar.add(Calendar.DATE, -dayOfWeek);
 
         List<Date> days = new ArrayList<>();
+        intDays = new ArrayList<>();
 
         for (int i = 0; i < count; i ++){
             days.add(mCalendar.getTime());
             mCalendar.add(Calendar.DATE, 1);
+            intDays.add(Calendar.DATE);
         }
 
         //状態を復元
