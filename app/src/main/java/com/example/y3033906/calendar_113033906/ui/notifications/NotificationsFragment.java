@@ -33,7 +33,7 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        titleText = root.findViewById(R.id.titleText);
+        /*titleText = root.findViewById(R.id.titleText);
         prevButton = root.findViewById(R.id.prevButton);
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,11 +49,13 @@ public class NotificationsFragment extends Fragment {
                 mCalendarAdapter.nextMonth();
                 titleText.setText(mCalendarAdapter.getTitle());
             }
-        });
+        });*/
         calendarGridView = root.findViewById(R.id.calendarGridView);
         mCalendarAdapter = new CalendarAdapter(MyApplication.getAppContext());
         calendarGridView.setAdapter(mCalendarAdapter);
-        titleText.setText(mCalendarAdapter.getTitle());
+        //titleText.setText(mCalendarAdapter.getTitle());
         return root;
     }
+
+
 }
