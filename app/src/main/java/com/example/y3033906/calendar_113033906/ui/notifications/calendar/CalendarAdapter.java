@@ -25,8 +25,9 @@ public class CalendarAdapter extends BaseAdapter {
     private final LayoutInflater mLayoutInflater;
 
     //カスタムセルを拡張したらここでWigetを定義
-    private static class ViewHolder {
+    public static class ViewHolder {
         public TextView dateText;
+        public TextView flatDateText;
     }
 
     public CalendarAdapter(Context context){
@@ -49,6 +50,7 @@ public class CalendarAdapter extends BaseAdapter {
                 convertView = mLayoutInflater.inflate(R.layout.calendar_cell, null);
                 holder = new ViewHolder();
                 holder.dateText = convertView.findViewById(R.id.dateText);
+                holder.flatDateText = convertView.findViewById(R.id.flatDateText);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -59,11 +61,10 @@ public class CalendarAdapter extends BaseAdapter {
             float dp = mContext.getResources().getDisplayMetrics().density;
             AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth() / 7 - (int) dp, parent.getWidth() / 7 - (int) dp - (parent.getWidth() / 7 - (int) dp) / 8);
             convertView.setLayoutParams(params);
-
-
             //日付のみ表示させる
             SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
             holder.dateText.setText(dateFormat.format(dateArray.get(position)));
+            holder.flatDateText.setText(dateFormat.format(dateArray.get(position)));
         }
 
         else;
