@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,14 +70,18 @@ public class NotificationsFragment extends Fragment {
         return root;
     }
 
-    public void onItemClick(AdapterView<?>parent,View view, int position, long id){
+    public void onItemClick(AdapterView<?>parent, View view, int position, long id){
         System.out.println(DAYS[position]);
-        view.setBackgroundColor(Color.BLACK);
+        RelativeLayout layout = (RelativeLayout)view;
+        System.out.println(layout.getChildCount());
+        //view.setBackgroundColor(Color.BLACK);
         if(beforeView != null)
-            beforeView.setBackgroundColor(Color.parseColor("#EDEDED"));
-            if(beforeView == view)
-                view.setBackgroundColor(Color.BLACK);
+            //beforeView.setBackgroundColor(Color.parseColor("#EDEDED"));
+            //layout.getChildAt(0)
+            layout.getChildAt(1).setVisibility(View.VISIBLE);
+        if(beforeView == view)
+            //view.setBackgroundColor(Color.BLACK);
+            layout.getChildAt(1).setVisibility(View.GONE);
         beforeView = view;
     }
-
 }

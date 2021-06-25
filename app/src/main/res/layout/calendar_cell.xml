@@ -5,13 +5,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center">
 
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/pressed_card"
+            style="@style/Widget.Neumorph.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:neumorph_shapeType="pressed">
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+        </soup.neumorphism.NeumorphCardView>
+
         <TextView
-            android:id="@+id/dateText"
+            android:id="@+id/flatDateText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:background="#ededed"/>
 
         <!--ここに拡張可能-->
 </RelativeLayout>

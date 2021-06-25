@@ -5,7 +5,7 @@
     android:id="@+id/flat_card"
     style="@style/Widget.Neumorph.CardView"
     android:layout_width="wrap_content"
-    android:layout_height="550dp"
+    android:layout_height="match_parent"
     android:layout_marginStart="30dp"
     android:layout_marginLeft="30dp"
     android:layout_marginTop="60dp"
@@ -165,7 +165,7 @@
         <GridView
             android:id="@+id/calendarGridView"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="146dp"
             android:horizontalSpacing="1dp"
             android:numColumns="7"
