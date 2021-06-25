@@ -8,7 +8,8 @@ import java.util.Locale;
 public class DateManager {
     static Calendar mCalendar;
     static Integer dayOfWeek,dayOfMonth;
-    static List<Integer> intDays;
+    public static List<String> intDays;
+    public static String[] ArrayDays;
 
     public DateManager(){
         mCalendar = Calendar.getInstance();
@@ -32,9 +33,11 @@ public class DateManager {
 
         for (int i = 0; i < count; i ++){
             days.add(mCalendar.getTime());
+            intDays.add(String.valueOf(mCalendar.get(Calendar.DATE)));
             mCalendar.add(Calendar.DATE, 1);
-            intDays.add(Calendar.DATE);
         }
+
+        ArrayDays = intDays.toArray(new String[intDays.size()]);
 
         //状態を復元
         mCalendar.setTime(startDate);

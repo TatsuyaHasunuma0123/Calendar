@@ -44,27 +44,29 @@ public class CalendarAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.calendar_cell, null);
-            holder = new ViewHolder();
-            holder.dateText = convertView.findViewById(R.id.dateText);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder)convertView.getTag();
-        }
 
-        //セルのサイズを指定
-        float dp = mContext.getResources().getDisplayMetrics().density;
-        AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth()/7 - (int)dp, parent.getWidth()/7 - (int)dp - (parent.getWidth()/7 - (int)dp) /8 );
-        convertView.setLayoutParams(params);
+            if (convertView == null) {
+                convertView = mLayoutInflater.inflate(R.layout.calendar_cell, null);
+                holder = new ViewHolder();
+                holder.dateText = convertView.findViewById(R.id.dateText);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
 
-        if((DateManager.dayOfWeek <= position) && (position < DateManager.dayOfWeek + DateManager.dayOfMonth)){
+        if((DateManager.dayOfWeek <= position) && (position < DateManager.dayOfWeek + DateManager.dayOfMonth)) {
+            //セルのサイズを指定
+            float dp = mContext.getResources().getDisplayMetrics().density;
+            AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth() / 7 - (int) dp, parent.getWidth() / 7 - (int) dp - (parent.getWidth() / 7 - (int) dp) / 8);
+            convertView.setLayoutParams(params);
+
+
             //日付のみ表示させる
             SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
             holder.dateText.setText(dateFormat.format(dateArray.get(position)));
         }
-        else
-            holder.dateText.setText("");
+
+        else;
 
         //日曜日を赤、土曜日を青に
         int colorId;
