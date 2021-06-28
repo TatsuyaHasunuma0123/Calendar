@@ -1,5 +1,4 @@
 package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -8,12 +7,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.example.y3033906.calendar_113033906.R;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -67,7 +62,10 @@ public class CalendarAdapter extends BaseAdapter {
             holder.flatDateText.setText(dateFormat.format(dateArray.get(position)));
         }
 
-        else;
+        else {
+            holder.dateText.setText("");
+            holder.flatDateText.setText("");
+        }
 
         //日曜日を赤、土曜日を青に
         int colorId;
@@ -101,7 +99,7 @@ public class CalendarAdapter extends BaseAdapter {
     //表示月を取得
     public String getTitle(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MMMM", Locale.US);
-        return format.format(mDateManager.mCalendar.getTime());
+        return format.format(DateManager.mCalendar.getTime());
     }
 
     //翌月表示

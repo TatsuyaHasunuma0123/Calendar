@@ -35,6 +35,7 @@ public class NotificationsFragment extends Fragment {
     private TextView titleText;
     private CalendarAdapter mCalendarAdapter;
     private View beforeView;
+    private RelativeLayout beforeLayout;
     private String[] DAYS;
     private Color background;
 
@@ -72,10 +73,10 @@ public class NotificationsFragment extends Fragment {
 
     public void onItemClick(AdapterView<?>parent, View view, int position, long id){
         RelativeLayout layout = (RelativeLayout) view;
-        if(beforeView != null)
-            layout.getChildAt(1).setVisibility(View.VISIBLE);
-            if(beforeView == view)
-                layout.getChildAt(1).setVisibility(View.GONE);
-        beforeView = view;
+        layout.getChildAt(1).setVisibility(View.GONE);
+        if((beforeLayout != null) && (beforeLayout != layout)) {
+            beforeLayout.getChildAt(1).setVisibility(View.VISIBLE);
+        }
+        beforeLayout = (RelativeLayout) view;
     }
 }
