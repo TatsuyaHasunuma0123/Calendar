@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.y3033906.calendar_113033906.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Twitter;
@@ -60,20 +63,17 @@ public class DashboardFragment extends Fragment {
                     protected String doInBackground(Void... params) {
                         Twitter twitter = new TwitterFactory().getInstance();
                         try {
-                            ResponseList<twitter4j.Status> userstatus = twitter.getUserTimeline(new Paging(1,100));
-                            for(twitter4j.Status status : userstatus)
-                                System.out.println(status.getUser().getName()+":"+status.getText());
+                            ResponseList<twitter4j.Status> userstatus = twitter.getUserTimeline(114446939,new Paging(1,100));
+                            for(twitter4j.Status status : userstatus) {
+                                Date date =status.getCreatedAt();
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                String strDate = dateFormat.format(date);
+                                System.out.println(status.getUser().getName() + ":" + status.getText() + ":" + strDate);
+                            }
+
                         } catch (TwitterException e) {
                             e.printStackTrace();
                         }
-                        /*try {
-                            User user = twitter.verifyCredentials();
-                            twitter4j.Status status = user.getStatus();
-                            System.out.println(status.getText());
-                        } catch (TwitterException e) {
-                            e.printStackTrace();
-                        }*/
-
                         return null;
                     }
                 };
