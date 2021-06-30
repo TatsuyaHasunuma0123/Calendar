@@ -51,11 +51,12 @@ public class CalendarAdapter extends BaseAdapter {
                 holder = (ViewHolder) convertView.getTag();
             }
 
+        //セルのサイズを指定
+        float dp = mContext.getResources().getDisplayMetrics().density;
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth() / 7 - (int) dp, parent.getWidth() / 7 - (int) dp - (parent.getWidth() / 7 - (int) dp) / 8);
+        convertView.setLayoutParams(params);
+
         if((DateManager.dayOfWeek <= position) && (position < DateManager.dayOfWeek + DateManager.dayOfMonth)) {
-            //セルのサイズを指定
-            float dp = mContext.getResources().getDisplayMetrics().density;
-            AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth() / 7 - (int) dp, parent.getWidth() / 7 - (int) dp - (parent.getWidth() / 7 - (int) dp) / 8);
-            convertView.setLayoutParams(params);
             //日付のみ表示させる
             SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
             holder.dateText.setText(dateFormat.format(dateArray.get(position)));
