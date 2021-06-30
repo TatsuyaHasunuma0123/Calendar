@@ -9,8 +9,8 @@
 
     <soup.neumorphism.NeumorphCardView
         android:id="@+id/neumorphCardView"
-        android:layout_width="409dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,14 +18,15 @@
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             android:hint="search..."
             android:textColorHint="#454545"
+            android:singleLine="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </soup.neumorphism.NeumorphCardView>
