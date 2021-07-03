@@ -18,6 +18,8 @@ public class CalendarAdapter extends BaseAdapter {
     private final Context mContext;
     private final DateManager mDateManager;
     private final LayoutInflater mLayoutInflater;
+    public static Date[] date = new Date[32];
+
 
     //カスタムセルを拡張したらここでWigetを定義
     public static class ViewHolder {
@@ -61,6 +63,7 @@ public class CalendarAdapter extends BaseAdapter {
             SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
             holder.dateText.setText(dateFormat.format(dateArray.get(position)));
             holder.flatDateText.setText(dateFormat.format(dateArray.get(position)));
+            date[DateManager.dayOfWeek] = (dateArray.get((position)));
         }
 
         else {
@@ -100,6 +103,7 @@ public class CalendarAdapter extends BaseAdapter {
     //表示月を取得
     public String getTitle(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MMMM", Locale.US);
+        System.out.println(format.format(DateManager.mCalendar.getTime()));
         return format.format(DateManager.mCalendar.getTime());
     }
 

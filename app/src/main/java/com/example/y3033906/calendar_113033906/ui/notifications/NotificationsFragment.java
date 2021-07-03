@@ -1,6 +1,5 @@
 package com.example.y3033906.calendar_113033906.ui.notifications;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.KeyEvent;
@@ -23,9 +22,9 @@ import com.example.y3033906.calendar_113033906.MainActivity;
 import com.example.y3033906.calendar_113033906.MyApplication;
 import com.example.y3033906.calendar_113033906.R;
 import com.example.y3033906.calendar_113033906.ui.notifications.calendar.CalendarAdapter;
-import com.example.y3033906.calendar_113033906.ui.notifications.calendar.DateManager;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import twitter4j.Paging;
@@ -39,10 +38,23 @@ public class NotificationsFragment extends Fragment {
     private NotificationsViewModel notificationsViewModel;
     private TextView titleText;
     private CalendarAdapter mCalendarAdapter;
-    private View beforeView;
     private RelativeLayout beforeLayout;
-    private String[] DAYS;
-    private Color background;
+
+    //private List<Tweet> tweetList;
+    private Tweet tweets[] = new Tweet[100];
+    class Tweet{
+        //ツイートの内容
+        String tweet;
+        //ツイートをした人
+        String user;
+        //ツイートの日時
+        Date date;
+        Tweet(String tweet, String user,Date date){
+            this.tweet = tweet;
+            this.user = user;
+            this.date = date;
+        }
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -66,13 +78,17 @@ public class NotificationsFragment extends Fragment {
                         @Override
                         protected String doInBackground(Void... params) {
                             Twitter twitter = new TwitterFactory().getInstance();
+                            int i = 0;
                             try {
                                 ResponseList<twitter4j.Status> userstatus = twitter.getUserTimeline(id,new Paging(1,100));
                                 for(twitter4j.Status status : userstatus) {
                                     Date date =status.getCreatedAt();
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                    String strDate = dateFormat.format(date);
-                                    System.out.println(status.getUser().getName() + ":" + status.getText() + ":" + strDate);
+
+                                    tweets[i] = new Tweet(status.getText(),status.getUser().getName(),status.getCreatedAt());
+
+                                    i += 1;
+
                                 }
 
                             } catch (TwitterException e) {
@@ -102,12 +118,12 @@ public class NotificationsFragment extends Fragment {
             public void onClick(View v) {
                 mCalendarAdapter.nextMonth();
                 titleText.setText(mCalendarAdapter.getTitle());
+                System.out.println(Arrays.toString(CalendarAdapter.date));
             }
         });
         GridView calendarGridView = root.findViewById(R.id.calendarGridView);
         mCalendarAdapter = new CalendarAdapter(MyApplication.getAppContext());
 
-        DAYS = DateManager.ArrayDays;
         calendarGridView.setAdapter(mCalendarAdapter);
         titleText.setText(mCalendarAdapter.getTitle());
         calendarGridView.setOnItemClickListener(this::onItemClick);

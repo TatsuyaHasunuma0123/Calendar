@@ -1,4 +1,5 @@
 package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,7 +10,6 @@ public class DateManager {
     static Calendar mCalendar;
     static Integer dayOfWeek,dayOfMonth;
     public static List<String> intDays;
-    public static String[] ArrayDays;
 
     public DateManager(){
         mCalendar = Calendar.getInstance();
@@ -36,8 +36,6 @@ public class DateManager {
             intDays.add(String.valueOf(mCalendar.get(Calendar.DATE)));
             mCalendar.add(Calendar.DATE, 1);
         }
-
-        ArrayDays = intDays.toArray(new String[intDays.size()]);
 
         //状態を復元
         mCalendar.setTime(startDate);
