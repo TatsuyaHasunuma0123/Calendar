@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import com.example.y3033906.calendar_113033906.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +20,6 @@ public class CalendarAdapter extends BaseAdapter {
     private final Context mContext;
     private final DateManager mDateManager;
     private final LayoutInflater mLayoutInflater;
-    public static Date[] date = new Date[32];
-
 
     //カスタムセルを拡張したらここでWigetを定義
     public static class ViewHolder {
@@ -32,6 +32,10 @@ public class CalendarAdapter extends BaseAdapter {
         mLayoutInflater = LayoutInflater.from(mContext);
         mDateManager = new DateManager();
         dateArray = mDateManager.getDays();
+    }
+
+    public List getDateArrayList() {
+        return dateArray;
     }
 
     @Override
@@ -63,7 +67,6 @@ public class CalendarAdapter extends BaseAdapter {
             SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
             holder.dateText.setText(dateFormat.format(dateArray.get(position)));
             holder.flatDateText.setText(dateFormat.format(dateArray.get(position)));
-            date[DateManager.dayOfWeek] = (dateArray.get((position)));
         }
 
         else {

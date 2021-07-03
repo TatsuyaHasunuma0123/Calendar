@@ -24,7 +24,6 @@ import com.example.y3033906.calendar_113033906.R;
 import com.example.y3033906.calendar_113033906.ui.notifications.calendar.CalendarAdapter;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 
 import twitter4j.Paging;
@@ -40,15 +39,14 @@ public class NotificationsFragment extends Fragment {
     private CalendarAdapter mCalendarAdapter;
     private RelativeLayout beforeLayout;
 
-    //private List<Tweet> tweetList;
-    private Tweet tweets[] = new Tweet[100];
-    class Tweet{
+    public static Tweet[] tweets = new Tweet[100];
+    public class Tweet{
         //ツイートの内容
-        String tweet;
+        public String tweet;
         //ツイートをした人
-        String user;
+        public String user;
         //ツイートの日時
-        Date date;
+        public Date date;
         Tweet(String tweet, String user,Date date){
             this.tweet = tweet;
             this.user = user;
@@ -118,7 +116,6 @@ public class NotificationsFragment extends Fragment {
             public void onClick(View v) {
                 mCalendarAdapter.nextMonth();
                 titleText.setText(mCalendarAdapter.getTitle());
-                System.out.println(Arrays.toString(CalendarAdapter.date));
             }
         });
         GridView calendarGridView = root.findViewById(R.id.calendarGridView);
