@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.view.View.VISIBLE;
+
 public class CalendarAdapter extends BaseAdapter {
     private List<Date> dateArray;
     private final Context mContext;
@@ -23,8 +25,11 @@ public class CalendarAdapter extends BaseAdapter {
 
     //カスタムセルを拡張したらここでWigetを定義
     public static class ViewHolder {
-        public TextView dateText;
-        public TextView flatDateText;
+        public TextView pressedLayerDateText;
+        public TextView flatLayerDateText;
+        public TextView normalLayerDateText;
+        public View pressedNewMorphView;
+        public View flatNewMorphView;
     }
 
     public CalendarAdapter(Context context){
@@ -32,10 +37,6 @@ public class CalendarAdapter extends BaseAdapter {
         mLayoutInflater = LayoutInflater.from(mContext);
         mDateManager = new DateManager();
         dateArray = mDateManager.getDays();
-    }
-
-    public List getDateArrayList() {
-        return dateArray;
     }
 
     @Override
@@ -50,12 +51,19 @@ public class CalendarAdapter extends BaseAdapter {
             if (convertView == null) {
                 convertView = mLayoutInflater.inflate(R.layout.calendar_cell, null);
                 holder = new ViewHolder();
-                holder.dateText = convertView.findViewById(R.id.dateText);
-                holder.flatDateText = convertView.findViewById(R.id.flatDateText);
+                holder.pressedLayerDateText = convertView.findViewById(R.id.pressedLayerDateText);
+                holder.flatLayerDateText    = convertView.findViewById(R.id.flatLayerDateText);
+                holder.normalLayerDateText  = convertView.findViewById(R.id.normalLayerDateText);
+                holder.pressedNewMorphView  = convertView.findViewById(R.id.pressedNeumorphView);
+                holder.flatNewMorphView     = convertView.findViewById(R.id.flatNeumorphView);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
+
+        holder.normalLayerDateText.setBackgroundColor(Color.parseColor("#EDEDED"));
+        holder.flatNewMorphView.setBackgroundColor(Color.parseColor("#EDEDED"));
+        holder.normalLayerDateText.setVisibility(VISIBLE);
 
         //セルのサイズを指定
         float dp = mContext.getResources().getDisplayMetrics().density;
@@ -65,13 +73,28 @@ public class CalendarAdapter extends BaseAdapter {
         if((DateManager.dayOfWeek <= position) && (position < DateManager.dayOfWeek + DateManager.dayOfMonth)) {
             //日付のみ表示させる
             SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
-            holder.dateText.setText(dateFormat.format(dateArray.get(position)));
-            holder.flatDateText.setText(dateFormat.format(dateArray.get(position)));
+            SimpleDateFormat compareFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+            holder.pressedLayerDateText.setText(dateFormat.format(dateArray.get(position)));
+            holder.flatLayerDateText.setText(dateFormat.format(dateArray.get(position)));
+            holder.normalLayerDateText.setText(dateFormat.format(dateArray.get(position)));
+
+
+
+            if (TweetModel.tweets[0] != null) {
+                for (int i = 0; i < TweetModel.tweets.length; i++) {
+                    if (compareFormat.format(TweetModel.tweets[i].date).compareTo(compareFormat.format(dateArray.get(position))) == 0) {
+                        holder.normalLayerDateText.setVisibility(View.GONE);
+                        holder.flatNewMorphView.setBackgroundColor(Color.parseColor("#00ACEE"));
+                        holder.pressedNewMorphView.setBackgroundColor(Color.parseColor("#267CA7"));
+                    }
+                }
+            }
         }
 
         else {
-            holder.dateText.setText("");
-            holder.flatDateText.setText("");
+            holder.pressedLayerDateText.setText("");
+            holder.flatLayerDateText.setText("");
+            holder.normalLayerDateText.setText("");
         }
 
         //日曜日を赤、土曜日を青に
@@ -88,7 +111,7 @@ public class CalendarAdapter extends BaseAdapter {
                 colorId = Color.BLACK;
                 break;
         }
-        holder.dateText.setTextColor(colorId);
+        holder.normalLayerDateText.setTextColor(colorId);
 
         return convertView;
     }
@@ -106,7 +129,7 @@ public class CalendarAdapter extends BaseAdapter {
     //表示月を取得
     public String getTitle(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MMMM", Locale.US);
-        System.out.println(format.format(DateManager.mCalendar.getTime()));
+        //System.out.println(format.format(DateManager.mCalendar.getTime()));
         return format.format(DateManager.mCalendar.getTime());
     }
 
@@ -123,4 +146,9 @@ public class CalendarAdapter extends BaseAdapter {
         dateArray = mDateManager.getDays();
         this.notifyDataSetChanged();
     }
+
+    public static void callTweetById(Integer id){
+        TweetModel.getTweetById(id);
+    }
+
 }

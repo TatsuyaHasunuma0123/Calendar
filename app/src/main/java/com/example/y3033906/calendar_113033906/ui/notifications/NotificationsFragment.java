@@ -23,15 +23,6 @@ import com.example.y3033906.calendar_113033906.MyApplication;
 import com.example.y3033906.calendar_113033906.R;
 import com.example.y3033906.calendar_113033906.ui.notifications.calendar.CalendarAdapter;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import twitter4j.Paging;
-import twitter4j.ResponseList;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
@@ -39,28 +30,19 @@ public class NotificationsFragment extends Fragment {
     private CalendarAdapter mCalendarAdapter;
     private RelativeLayout beforeLayout;
 
-    public static Tweet[] tweets = new Tweet[100];
-    public class Tweet{
-        //ツイートの内容
-        public String tweet;
-        //ツイートをした人
-        public String user;
-        //ツイートの日時
-        public Date date;
-        Tweet(String tweet, String user,Date date){
-            this.tweet = tweet;
-            this.user = user;
-            this.date = date;
-        }
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
+
+        //Fragmentを取得
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+
+        //タイトルテキスト(ex.「2021.July」の表示部)を取得
         titleText = root.findViewById(R.id.titleText);
 
+
+        /*---------------------------------EditTextの処理設定--------------------------------------*/
         EditText editText = root.findViewById(R.id.editText);
 
         editText.setOnKeyListener(new View.OnKeyListener() {
@@ -71,37 +53,16 @@ public class NotificationsFragment extends Fragment {
                     SpannableStringBuilder sb = (SpannableStringBuilder)editText.getText();
                     String str = sb.toString();
                     Integer id = Integer.valueOf(str);
-                    android.os.AsyncTask<Void, Void, String> task
-                            = new android.os.AsyncTask<Void, Void, String>() {
-                        @Override
-                        protected String doInBackground(Void... params) {
-                            Twitter twitter = new TwitterFactory().getInstance();
-                            int i = 0;
-                            try {
-                                ResponseList<twitter4j.Status> userstatus = twitter.getUserTimeline(id,new Paging(1,100));
-                                for(twitter4j.Status status : userstatus) {
-                                    Date date =status.getCreatedAt();
-                                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-                                    tweets[i] = new Tweet(status.getText(),status.getUser().getName(),status.getCreatedAt());
-
-                                    i += 1;
-
-                                }
-
-                            } catch (TwitterException e) {
-                                e.printStackTrace();
-                            }
-                            return null;
-                        }
-                    };
-                    task.execute();
-                    return true;
+                    CalendarAdapter.callTweetById(id);
                 }
                 return false;
             }
         });
+        /*----------------------------------------------------------------------------------------*/
 
+        /*----------------------------------------ボタンの処理-------------------------------------*/
+
+        //「＜」ボタン
         ImageButton prevButton = root.findViewById(R.id.prevButton);
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +71,8 @@ public class NotificationsFragment extends Fragment {
                 titleText.setText(mCalendarAdapter.getTitle());
             }
         });
+
+        //「＞」ボタン
         ImageButton nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,15 +81,21 @@ public class NotificationsFragment extends Fragment {
                 titleText.setText(mCalendarAdapter.getTitle());
             }
         });
+        /*----------------------------------------------------------------------------------------*/
+
+
+
+        //カレンダーの表示
         GridView calendarGridView = root.findViewById(R.id.calendarGridView);
         mCalendarAdapter = new CalendarAdapter(MyApplication.getAppContext());
-
-        calendarGridView.setAdapter(mCalendarAdapter);
         titleText.setText(mCalendarAdapter.getTitle());
+        calendarGridView.setAdapter(mCalendarAdapter);
+
         calendarGridView.setOnItemClickListener(this::onItemClick);
         return root;
     }
 
+    //カレンダーの日付をタッチした時にレイアウトを変更する
     public void onItemClick(AdapterView<?>parent, View view, int position, long id){
         RelativeLayout layout = (RelativeLayout) view;
         layout.getChildAt(1).setVisibility(View.GONE);
