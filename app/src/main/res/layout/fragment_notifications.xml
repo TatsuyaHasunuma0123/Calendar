@@ -77,10 +77,9 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/arrow_ios_back_outline"
                 android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-                app:layout_constraintEnd_toStartOf="@+id/nextButton" />
+                app:layout_constraintEnd_toStartOf="@+id/nextButton"
+                android:contentDescription="TODO" />
 
             <ImageButton
                 android:id="@+id/nextButton"

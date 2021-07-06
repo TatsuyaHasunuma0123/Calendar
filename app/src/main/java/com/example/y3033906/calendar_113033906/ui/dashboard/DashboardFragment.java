@@ -12,14 +12,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.y3033906.calendar_113033906.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import twitter4j.Paging;
-import twitter4j.ResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
 
 public class DashboardFragment extends Fragment {
 
@@ -38,8 +34,17 @@ public class DashboardFragment extends Fragment {
                         = new android.os.AsyncTask<Void, Void, String>() {
                     @Override
                     protected String doInBackground(Void... params) {
-                        String word = "もっかいテスト！";
+                        String word = "twitter4jを削除";
                         Twitter twitter = TwitterFactory.getSingleton();
+                        try {
+                            User user = twitter.verifyCredentials();
+                            System.out.println(user.getId());
+                            System.out.println(user.getName());
+
+                        } catch (TwitterException e) {
+                            e.printStackTrace();
+                        }
+                        //twitter.setOAuthConsumer("5WGptOlaXuQjVWRzBAGxujlPy","o2KjptTGb5q0wSHvuWrcA9ixAdLQbdzwkx3lDTpCRjEFF4CUbU");
                         try {
                             twitter4j.Status status = twitter.updateStatus(word);
                         } catch (TwitterException e) {
@@ -53,31 +58,11 @@ public class DashboardFragment extends Fragment {
 
         });
 
-        Button get = root.findViewById(R.id.button3);
-        get.setOnClickListener(new View.OnClickListener() {
+        Button AOuth = root.findViewById(R.id.button3);
+        AOuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.os.AsyncTask<Void, Void, String> task
-                        = new android.os.AsyncTask<Void, Void, String>() {
-                    @Override
-                    protected String doInBackground(Void... params) {
-                        Twitter twitter = new TwitterFactory().getInstance();
-                        try {
-                            ResponseList<twitter4j.Status> userstatus = twitter.getUserTimeline(114446939,new Paging(1,100));
-                            for(twitter4j.Status status : userstatus) {
-                                Date date =status.getCreatedAt();
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                String strDate = dateFormat.format(date);
-                                System.out.println(status.getUser().getName() + ":" + status.getText() + ":" + strDate);
-                            }
-
-                        } catch (TwitterException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-                };
-                task.execute();
+                //ここにAOuth認証
             }
         });
 

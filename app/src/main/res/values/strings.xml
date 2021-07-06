@@ -13,4 +13,9 @@
     <string name="Saturday">Sa</string>
     <string name="Sunday">Su</string>
 
+    <string name="twitter_consumer_key">5WGptOlaXuQjVWRzBAGxujlPy</string>
+    <string name="twitter_consumer_secret">o2KjptTGb5q0wSHvuWrcA9ixAdLQbdzwkx3lDTpCRjEFF4CUbU</string>
+    <string name="twitter_callback_url">test://twitter</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
