@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -29,6 +30,7 @@ public class NotificationsFragment extends Fragment {
     private TextView titleText;
     private CalendarAdapter mCalendarAdapter;
     private RelativeLayout beforeLayout;
+    private Integer id;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class NotificationsFragment extends Fragment {
                     MainActivity.inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
                     SpannableStringBuilder sb = (SpannableStringBuilder)editText.getText();
                     String str = sb.toString();
-                    Integer id = Integer.valueOf(str);
+                    id = Integer.valueOf(str);
                     CalendarAdapter.callTweetById(id);
                 }
                 return false;
@@ -61,7 +63,16 @@ public class NotificationsFragment extends Fragment {
         /*----------------------------------------------------------------------------------------*/
 
         /*----------------------------------------ボタンの処理-------------------------------------*/
-
+        //「検索ボタン」
+        Button searchButton = root.findViewById(R.id.button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(id == null)
+                    System.out.println("空にだ");
+                CalendarAdapter.callTweetById(id);
+            }
+        });
         //「＜」ボタン
         ImageButton prevButton = root.findViewById(R.id.prevButton);
         prevButton.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +93,6 @@ public class NotificationsFragment extends Fragment {
             }
         });
         /*----------------------------------------------------------------------------------------*/
-
-
 
         //カレンダーの表示
         GridView calendarGridView = root.findViewById(R.id.calendarGridView);

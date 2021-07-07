@@ -8,13 +8,14 @@
     tools:context=".ui.notifications.NotificationsFragment">
 
     <soup.neumorphism.NeumorphCardView
-        android:id="@+id/neumorphCardView"
-        android:layout_width="match_parent"
+        android:id="@+id/neumorphSearchCardView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:neumorph_lightSource="rightBottom" >
+        app:neumorph_lightSource="rightBottom">
 
         <EditText
             android:id="@+id/editText"
@@ -25,13 +26,21 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:hint="search..."
-            android:textColorHint="#454545"
             android:singleLine="true"
+            android:textColorHint="#454545"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </soup.neumorphism.NeumorphCardView>
 
-
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/button"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/neumorphSearchCardView" />
 
     <soup.neumorphism.NeumorphCardView
         android:id="@+id/flat_card"
@@ -49,7 +58,6 @@
 
             <TextView
                 android:id="@+id/titleText"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -214,4 +222,27 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </soup.neumorphism.NeumorphCardView>
+
+    <soup.neumorphism.NeumorphCardView
+        android:id="@+id/neumorphCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:neumorph_lightSource="rightBottom" >
+
+        <TextView
+            android:id="@+id/tweetTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </soup.neumorphism.NeumorphCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
