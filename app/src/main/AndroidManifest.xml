@@ -24,22 +24,6 @@
             </intent-filter>
         </activity>
 
-        <!--OAuth認証用アクティビティ-->
-        <activity
-            android:name=".Twitter.TwitterOAuthActivity"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data
-                    android:host="twitter"
-                    android:scheme="test" />
-            </intent-filter>
-        </activity>
-
     </application>
 
 </manifest>
