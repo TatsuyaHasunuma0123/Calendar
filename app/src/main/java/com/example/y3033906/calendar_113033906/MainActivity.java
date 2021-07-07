@@ -12,9 +12,15 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import twitter4j.auth.RequestToken;
+
 public class MainActivity extends AppCompatActivity {
 
     public static InputMethodManager inputMethodManager;
+    static final String CALLBACK_URL = "callback://";
+    static final String CONSUMER_ID = "5WGptOlaXuQjVWRzBAGxujlPy";
+    static final String CONSUMER_SECRET = "o2KjptTGb5q0wSHvuWrcA9ixAdLQbdzwkx3lDTpCRjEFF4CUbU";
+    private RequestToken _reqToken = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +36,5 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-        /*if (!TwitterUtils.hasAccessToken(this)) {
-            Intent intent = new Intent(getApplication(), TwitterOAuthActivity.class);
-            startActivity(intent);
-            finish();
-        }*/
     }
 }
