@@ -55,9 +55,11 @@ public class TweetModel {
     public static String getTweetByCalendarDate(String strDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
         for(int i = 0; i < 100; i++){
-            if(dateFormat.format(tweets[i].date).equals(strDate))
-                return tweets[i].tweet;
+            if(tweets[i] == null)
+                return "ツイートが検索されていません";
+            else if(dateFormat.format(tweets[i].date).equals(strDate))
+                    return tweets[i].tweet;
         }
-        return "e";
+        return  "ツイートが検索されていません";
     }
 }
