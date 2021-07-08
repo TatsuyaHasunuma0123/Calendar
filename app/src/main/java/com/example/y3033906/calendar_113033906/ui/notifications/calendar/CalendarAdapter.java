@@ -23,6 +23,8 @@ public class CalendarAdapter extends BaseAdapter {
     private final DateManager mDateManager;
     private final LayoutInflater mLayoutInflater;
 
+
+
     //カスタムセルを拡張したらここでWigetを定義
     public static class ViewHolder {
         public TextView pressedLayerDateText;
@@ -150,5 +152,15 @@ public class CalendarAdapter extends BaseAdapter {
     public static void callTweetById(Integer id){
         TweetModel.getTweetById(id);
     }
+
+    public static String getTweetFromView(View view) {
+        View settingView = view.findViewById(R.id.normalLayerDateText);
+        TextView txtDate = settingView.findViewById(R.id.normalLayerDateText);
+        String strDate = txtDate.getText().toString();
+        String tweet = TweetModel.getTweetByCalendarDate(strDate);
+        return tweet;
+    }
+
+
 
 }

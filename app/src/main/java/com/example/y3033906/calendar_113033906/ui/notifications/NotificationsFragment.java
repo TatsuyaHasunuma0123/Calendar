@@ -27,7 +27,7 @@ import com.example.y3033906.calendar_113033906.ui.notifications.calendar.Calenda
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
-    private TextView titleText;
+    private TextView titleText,tweetText;
     private CalendarAdapter mCalendarAdapter;
     private RelativeLayout beforeLayout;
     private Integer id;
@@ -42,6 +42,7 @@ public class NotificationsFragment extends Fragment {
 
         //タイトルテキスト(ex.「2021.July」の表示部)を取得
         titleText = root.findViewById(R.id.titleText);
+        tweetText = root.findViewById(R.id.tweetTextView);
 
 
         /*---------------------------------EditTextの処理設定--------------------------------------*/
@@ -55,7 +56,7 @@ public class NotificationsFragment extends Fragment {
                     SpannableStringBuilder sb = (SpannableStringBuilder)editText.getText();
                     String str = sb.toString();
                     id = Integer.valueOf(str);
-                    CalendarAdapter.callTweetById(id);
+                    //CalendarAdapter.callTweetById(id);
                 }
                 return false;
             }
@@ -111,6 +112,9 @@ public class NotificationsFragment extends Fragment {
         if((beforeLayout != null) && (beforeLayout != layout)) {
             beforeLayout.getChildAt(1).setVisibility(View.VISIBLE);
         }
+
+        String string_TweetText = CalendarAdapter.getTweetFromView(view);
+        tweetText.setText(string_TweetText);
         beforeLayout = (RelativeLayout) view;
     }
 }

@@ -15,6 +15,8 @@ public class DateManager {
         mCalendar = Calendar.getInstance();
     }
 
+
+
     //当月の要素を取得
     public List<Date> getDays(){
         //現在の状態を保持

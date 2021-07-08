@@ -1,6 +1,8 @@
 package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import twitter4j.Paging;
 import twitter4j.ResponseList;
@@ -11,6 +13,7 @@ import twitter4j.TwitterFactory;
 public class TweetModel {
 
     public static Tweet[] tweets = new Tweet[100];
+
     public static class Tweet{
         //ツイートの内容
         public String tweet;
@@ -18,6 +21,8 @@ public class TweetModel {
         public String user;
         //ツイートの日時
         public Date date;
+
+        public static Tweet[] tweets = new Tweet[100];
         Tweet(String tweet, String user,Date date){
             this.tweet = tweet;
             this.user = user;
@@ -45,5 +50,14 @@ public class TweetModel {
             }
         };
         task.execute();
+    }
+
+    public static String getTweetByCalendarDate(String strDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
+        for(int i = 0; i < 100; i++){
+            if(dateFormat.format(tweets[i].date).equals(strDate))
+                return tweets[i].tweet;
+        }
+        return "e";
     }
 }
