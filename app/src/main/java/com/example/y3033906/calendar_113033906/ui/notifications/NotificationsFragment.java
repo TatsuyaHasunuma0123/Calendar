@@ -39,6 +39,9 @@ public class NotificationsFragment extends Fragment {
 
         //Fragmentを取得
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+//        View neumorphView = root.findViewById(R.id.neumorphTweetCardView);
+//        ViewGroup p = (ViewGroup) neumorphView.getParent();
+//        p.removeView(neumorphView);
 
         //タイトルテキスト(ex.「2021.July」の表示部)を取得
         titleText = root.findViewById(R.id.titleText);
