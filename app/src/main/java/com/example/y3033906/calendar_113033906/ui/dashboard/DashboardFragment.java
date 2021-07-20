@@ -35,7 +35,6 @@ public class DashboardFragment extends Fragment {
                         = new android.os.AsyncTask<Void, Void, String>() {
                     @Override
                     protected String doInBackground(Void... params) {
-                        String word = "twitter4jを削除";
                         String screenName = "ariyoshihiroiki";
                         Twitter twitter = TwitterFactory.getSingleton();
                         try {
