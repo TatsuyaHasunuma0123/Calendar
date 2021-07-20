@@ -31,6 +31,9 @@ public class NotificationsFragment extends Fragment {
     private CalendarAdapter mCalendarAdapter;
     private RelativeLayout beforeLayout;
     private Integer id;
+    private  View root,neumorphView;
+    private  ViewGroup p;
+    private boolean isNeumorphShow;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,28 +41,25 @@ public class NotificationsFragment extends Fragment {
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
 
         //Fragmentを取得
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-//        View neumorphView = root.findViewById(R.id.neumorphTweetCardView);
-//        ViewGroup p = (ViewGroup) neumorphView.getParent();
-//        p.removeView(neumorphView);
+        root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        neumorphView = root.findViewById(R.id.neumorphTweetCardView);
+        p = (ViewGroup) neumorphView.getParent();
+        p.removeView(neumorphView);
+        isNeumorphShow = false;
 
         //タイトルテキスト(ex.「2021.July」の表示部)を取得
         titleText = root.findViewById(R.id.titleText);
-        tweetText = root.findViewById(R.id.tweetTextView);
 
 
         /*---------------------------------EditTextの処理設定--------------------------------------*/
         EditText editText = root.findViewById(R.id.editText);
 
+        //https://www.itcowork.co.jp/blog/?p=864
         editText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event){
                 if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
                     MainActivity.inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-                    SpannableStringBuilder sb = (SpannableStringBuilder)editText.getText();
-                    String str = sb.toString();
-                    id = Integer.valueOf(str);
-                    //CalendarAdapter.callTweetById(id);
                 }
                 return false;
             }
@@ -72,9 +72,18 @@ public class NotificationsFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(id == null)
-                    System.out.println("空にだ");
-                CalendarAdapter.callTweetById(id);
+                if((SpannableStringBuilder)editText.getText() != null) {
+                    SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
+                    String str = sb.toString();
+                    id = Integer.valueOf(str);
+                    try {
+                        mCalendarAdapter.callTweetById(id);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //キーボードを消す
+                MainActivity.inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
             }
         });
         //「＜」ボタン
@@ -109,14 +118,21 @@ public class NotificationsFragment extends Fragment {
     }
 
     //カレンダーの日付をタッチした時にレイアウトを変更する
-    public void onItemClick(AdapterView<?>parent, View view, int position, long id){
+    public void onItemClick(AdapterView<?>parent, View view, int position, long id) {
         RelativeLayout layout = (RelativeLayout) view;
         layout.getChildAt(1).setVisibility(View.GONE);
-        if((beforeLayout != null) && (beforeLayout != layout)) {
+        if ((beforeLayout != null) && (beforeLayout != layout)) {
             beforeLayout.getChildAt(1).setVisibility(View.VISIBLE);
         }
 
+        if (!isNeumorphShow) {
+            p.addView(neumorphView);
+            isNeumorphShow = true;
+            tweetText = root.findViewById(R.id.tweetTextView);
+        }
+
         String string_TweetText = CalendarAdapter.getTweetFromView(view);
+
         tweetText.setText(string_TweetText);
         beforeLayout = (RelativeLayout) view;
     }

@@ -1,4 +1,5 @@
 package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -22,7 +23,6 @@ public class CalendarAdapter extends BaseAdapter {
     private final Context mContext;
     private final DateManager mDateManager;
     private final LayoutInflater mLayoutInflater;
-
 
 
     //カスタムセルを拡張したらここでWigetを定義
@@ -149,8 +149,9 @@ public class CalendarAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public static void callTweetById(Integer id){
+    public synchronized void callTweetById(Integer id) throws InterruptedException {
         TweetModel.getTweetById(id);
+        this.notifyDataSetChanged();
     }
 
     public static String getTweetFromView(View view) {
