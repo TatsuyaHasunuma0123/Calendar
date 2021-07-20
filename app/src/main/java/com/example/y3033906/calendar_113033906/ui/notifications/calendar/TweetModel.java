@@ -9,8 +9,10 @@ import twitter4j.ResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
 
 public class TweetModel {
+    private static User user;
 
     public static Tweet[] tweets = new Tweet[100];
 
@@ -30,15 +32,22 @@ public class TweetModel {
         }
     }
 
-    public static void getTweetById(Integer id) {
+    public static void getTweetById(String screenName) {
         android.os.AsyncTask<Void, Void, String> task
                 = new android.os.AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
-                Twitter twitter = new TwitterFactory().getInstance();
+                Twitter twitter = TwitterFactory.getSingleton();
+                try {
+                    user = twitter.verifyCredentials();
+                    user = twitter.showUser(screenName);
+                } catch (TwitterException e) {
+                    e.printStackTrace();
+                }
+                twitter = new TwitterFactory().getInstance();
                 int i = 0;
                 try {
-                    ResponseList<twitter4j.Status> userStatus = twitter.getUserTimeline(id, new Paging(1, 100));
+                    ResponseList<twitter4j.Status> userStatus = twitter.getUserTimeline(user.getId(), new Paging(1, 100));
                     for (twitter4j.Status status : userStatus) {
                         tweets[i] = new Tweet(status.getText(), status.getUser().getName(), status.getCreatedAt());
                         i++;

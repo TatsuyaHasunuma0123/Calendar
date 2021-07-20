@@ -149,8 +149,8 @@ public class CalendarAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public synchronized void callTweetById(Integer id) throws InterruptedException {
-        TweetModel.getTweetById(id);
+    public synchronized void callTweetByScreenName(String screenName) {
+        TweetModel.getTweetById(screenName);
         this.notifyDataSetChanged();
     }
 

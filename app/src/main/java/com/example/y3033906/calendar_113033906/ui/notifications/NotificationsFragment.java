@@ -75,12 +75,7 @@ public class NotificationsFragment extends Fragment {
                 if((SpannableStringBuilder)editText.getText() != null) {
                     SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
                     String str = sb.toString();
-                    id = Integer.valueOf(str);
-                    try {
-                        mCalendarAdapter.callTweetById(id);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    mCalendarAdapter.callTweetByScreenName(str);
                 }
                 //キーボードを消す
                 MainActivity.inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
