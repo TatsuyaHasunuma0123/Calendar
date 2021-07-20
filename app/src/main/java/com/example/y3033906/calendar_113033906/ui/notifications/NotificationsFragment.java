@@ -129,6 +129,7 @@ public class NotificationsFragment extends Fragment {
         String string_TweetText = CalendarAdapter.getTweetFromView(view);
 
         tweetText.setText(string_TweetText);
+
         beforeLayout = (RelativeLayout) view;
     }
 }
