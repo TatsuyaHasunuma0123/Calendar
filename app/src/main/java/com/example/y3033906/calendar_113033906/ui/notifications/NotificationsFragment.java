@@ -36,7 +36,8 @@ public class NotificationsFragment extends Fragment {
     private  ViewGroup p;
     private boolean isNeumorphShow;
     private NeumorphImageButton hashTagButton;
-    private int FLAT = 0,PRESSED = 1;
+    private final int FLAT = 0;
+    private final int PRESSED = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -144,11 +145,17 @@ public class NotificationsFragment extends Fragment {
 
     //カレンダーの日付をタッチした時にレイアウトを変更する
     public void onItemClick(AdapterView<?>parent, View view, int position, long id) {
+        //タッチしたViewに対してレイアウトを割り当てる
         RelativeLayout layout = (RelativeLayout) view;
+
+        //1つ目のレイアウトを透過し、ボタン押下時のレイアウトが見えるようにする
         layout.getChildAt(1).setVisibility(View.GONE);
+
+        //別のボタンが押下された時、1つ前のレイアウトを透明で無くし、押下時のレイアウトを隠す
         if ((beforeLayout != null) && (beforeLayout != layout)) {
             beforeLayout.getChildAt(1).setVisibility(View.VISIBLE);
         }
+
 
         if (!isNeumorphShow) {
             p.addView(neumorphView);

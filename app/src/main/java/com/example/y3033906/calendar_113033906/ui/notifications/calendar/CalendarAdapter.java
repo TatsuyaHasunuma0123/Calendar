@@ -55,16 +55,23 @@ public class CalendarAdapter extends BaseAdapter {
             if (convertView == null) {
                 convertView = mLayoutInflater.inflate(R.layout.calendar_cell, null);
                 holder = new ViewHolder();
+                /*---------------------------3層構造になっている-----------------------------------*/
+                //日付が押された時のTextViewのレイアウト
                 holder.pressedLayerDateText = convertView.findViewById(R.id.pressedLayerDateText);
-                holder.flatLayerDateText    = convertView.findViewById(R.id.flatLayerDateText);
-                holder.normalLayerDateText  = convertView.findViewById(R.id.normalLayerDateText);
                 holder.pressedNewMorphView  = convertView.findViewById(R.id.pressedNeumorphView);
+                //一般のNeumorphismのTextViewのレイアウト
+                holder.flatLayerDateText    = convertView.findViewById(R.id.flatLayerDateText);
                 holder.flatNewMorphView     = convertView.findViewById(R.id.flatNeumorphView);
+                //平坦なtextView
+                holder.normalLayerDateText  = convertView.findViewById(R.id.normalLayerDateText);
+                /*--------------------------------------------------------------------------------*/
                 convertView.setTag(holder);
+
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
+        //nextmonthやprevmonthで再描画処理が行われた際に背景や透明度を基に戻すための記述
         holder.normalLayerDateText.setBackgroundColor(Color.parseColor("#EDEDED"));
         holder.flatNewMorphView.setBackgroundColor(Color.parseColor("#EDEDED"));
         holder.normalLayerDateText.setVisibility(VISIBLE);
@@ -74,27 +81,37 @@ public class CalendarAdapter extends BaseAdapter {
         AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth() / 7 - (int) dp, parent.getWidth() / 7 - (int) dp - (parent.getWidth() / 7 - (int) dp) / 8);
         convertView.setLayoutParams(params);
 
+        //その月の1日から末日までを表示するためのif
         if((DateManager.dayOfWeek <= position) && (position < DateManager.dayOfWeek + DateManager.dayOfMonth)) {
             //日付のみ表示させる
             SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
             SimpleDateFormat compareFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+
+            //すべての層のtextViewに日付を表示
             holder.pressedLayerDateText.setText(dateFormat.format(dateArray.get(position)));
             holder.flatLayerDateText.setText(dateFormat.format(dateArray.get(position)));
             holder.normalLayerDateText.setText(dateFormat.format(dateArray.get(position)));
 
 
-
+            /*---------ツイートが格納されている日付のflatNewMorphViewを見えるようにする----------------*/
+            //tweetsがない場合のエラー処理if
             if (TweetModel.tweets[0] != null) {
+                //tweetsクラスの長さの文繰り返す
                 for (int i = 0; i < TweetModel.tweets.length; i++) {
                     if (compareFormat.format(TweetModel.tweets[i].date).compareTo(compareFormat.format(dateArray.get(position))) == 0) {
+                        //一番上にあるnormalLayerDateTextを透過させ、flatNewMorphViewが見えるようにする。
                         holder.normalLayerDateText.setVisibility(View.GONE);
+                        //背景を実際のツイッターの青色に設定
                         holder.flatNewMorphView.setBackgroundColor(Color.parseColor("#00ACEE"));
+                        //日付が押された時に見える背景は上の青色よりも少し暗めに設定
                         holder.pressedNewMorphView.setBackgroundColor(Color.parseColor("#267CA7"));
                     }
                 }
             }
+            /*------------------------------------------------------------------------------------*/
         }
 
+        //その月の1～末日以外の場合は空欄
         else {
             holder.pressedLayerDateText.setText("");
             holder.flatLayerDateText.setText("");
