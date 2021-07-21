@@ -7,40 +7,41 @@
     android:orientation="vertical"
     tools:context=".ui.notifications.NotificationsFragment">
 
-    <soup.neumorphism.NeumorphCardView
-        android:id="@+id/neumorphSearchCardView"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/flat_card"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:neumorph_lightSource="rightBottom">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphSearchCardView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:hint="search..."
-            android:singleLine="true"
-            android:textColorHint="#454545"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </soup.neumorphism.NeumorphCardView>
+            app:neumorph_lightSource="rightBottom">
 
-    <soup.neumorphism.NeumorphButton
-        android:id="@+id/button"
-        style="@style/Widget.Neumorph.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="8dp"
-        android:text="Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/neumorphSearchCardView" />
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/search"
+                android:singleLine="true"
+                android:textColorHint="#454545"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphImageButton
+            android:id="@+id/button"
+            style="@style/Widget.Neumorph.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/search_line" />
+    </LinearLayout>
 
     <soup.neumorphism.NeumorphCardView
         android:id="@+id/flat_card"

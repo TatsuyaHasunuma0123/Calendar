@@ -1,5 +1,7 @@
 package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
 
+import androidx.fragment.app.FragmentActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -32,7 +34,7 @@ public class TweetModel {
         }
     }
 
-    public static void getTweetById(String screenName) {
+    public static void getTweetById(String screenName, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment) {
         android.os.AsyncTask<Void, Void, String> task
                 = new android.os.AsyncTask<Void, Void, String>() {
             @Override
@@ -52,6 +54,15 @@ public class TweetModel {
                         tweets[i] = new Tweet(status.getText(), status.getUser().getName(), status.getCreatedAt());
                         i++;
                     }
+
+                    //UI変更のため、メインスレッドでの動作を行う。
+                    notificationsFragment.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            calendarAdapter.notifyDataSetChanged();
+                        }
+                    });
+
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }
@@ -59,6 +70,7 @@ public class TweetModel {
             }
         };
         task.execute();
+
     }
 
     public static String getTweetByCalendarDate(String strDate) {
@@ -75,6 +87,6 @@ public class TweetModel {
     }
 
     public static void getTweetByHashTag(String hashTag){
-
     }
+
 }

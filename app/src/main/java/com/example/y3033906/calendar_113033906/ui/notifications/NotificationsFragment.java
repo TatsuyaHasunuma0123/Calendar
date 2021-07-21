@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.y3033906.calendar_113033906.MainActivity;
@@ -39,6 +39,9 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
+
+        //NotificationsFragment self = this;
+        FragmentActivity self = getActivity();
 
         //Fragmentを取得
         root = inflater.inflate(R.layout.fragment_notifications, container, false);
@@ -68,14 +71,14 @@ public class NotificationsFragment extends Fragment {
 
         /*----------------------------------------ボタンの処理-------------------------------------*/
         //「検索ボタン」
-        Button searchButton = root.findViewById(R.id.button);
+        ImageButton searchButton = root.findViewById(R.id.button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if((SpannableStringBuilder)editText.getText() != null) {
                     SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
                     String str = sb.toString();
-                    mCalendarAdapter.callTweetByScreenName(str);
+                    mCalendarAdapter.callTweetByScreenName(str,self);
                 }
                 //キーボードを消す
                 MainActivity.inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
@@ -132,4 +135,6 @@ public class NotificationsFragment extends Fragment {
 
         beforeLayout = (RelativeLayout) view;
     }
+
+
 }

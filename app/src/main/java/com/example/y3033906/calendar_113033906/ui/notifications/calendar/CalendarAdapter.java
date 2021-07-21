@@ -9,6 +9,8 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.y3033906.calendar_113033906.R;
 
 import java.text.SimpleDateFormat;
@@ -148,9 +150,8 @@ public class CalendarAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public synchronized void callTweetByScreenName(String screenName) {
-        TweetModel.getTweetById(screenName);
-        this.notifyDataSetChanged();
+    public void callTweetByScreenName(String screenName, FragmentActivity notificationsFragment) {
+        TweetModel.getTweetById(screenName,this,notificationsFragment);
     }
 
     public static String getTweetFromView(View view) {
