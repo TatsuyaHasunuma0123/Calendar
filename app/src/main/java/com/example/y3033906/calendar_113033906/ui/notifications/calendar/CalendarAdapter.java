@@ -131,7 +131,6 @@ public class CalendarAdapter extends BaseAdapter {
     //表示月を取得
     public String getTitle(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MMMM", Locale.US);
-        //System.out.println(format.format(DateManager.mCalendar.getTime()));
         return format.format(DateManager.mCalendar.getTime());
     }
 
@@ -158,7 +157,12 @@ public class CalendarAdapter extends BaseAdapter {
         View settingView = view.findViewById(R.id.normalLayerDateText);
         TextView txtDate = settingView.findViewById(R.id.normalLayerDateText);
         String strDate = txtDate.getText().toString();
-        String tweet = TweetModel.getTweetByCalendarDate(strDate);
+        SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM");
+
+        String st_sdformat = String.valueOf(sdformat.format(DateManager.mCalendar.getTime()));
+        st_sdformat = st_sdformat + "/" + strDate;
+        String tweet = TweetModel.getTweetByCalendarDate(st_sdformat);
+
         return tweet;
     }
 

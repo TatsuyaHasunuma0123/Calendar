@@ -39,8 +39,8 @@ public class TweetModel {
             protected String doInBackground(Void... params) {
                 Twitter twitter = TwitterFactory.getSingleton();
                 try {
-                    user = twitter.verifyCredentials();
                     user = twitter.showUser(screenName);
+                    user.getId();
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }
@@ -62,13 +62,19 @@ public class TweetModel {
     }
 
     public static String getTweetByCalendarDate(String strDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/d", Locale.US);
         for(int i = 0; i < 100; i++){
+            System.out.println(dateFormat.format(tweets[i].date));
+            System.out.println(strDate);
             if(tweets[i] == null)
                 return "ツイートが検索されていません";
             else if(dateFormat.format(tweets[i].date).equals(strDate))
                     return tweets[i].tweet;
         }
         return  "ツイートが検索されていません";
+    }
+
+    public static void getTweetByHashTag(String hashTag){
+
     }
 }
