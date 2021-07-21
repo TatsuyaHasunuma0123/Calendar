@@ -24,16 +24,19 @@ import com.example.y3033906.calendar_113033906.MyApplication;
 import com.example.y3033906.calendar_113033906.R;
 import com.example.y3033906.calendar_113033906.ui.notifications.calendar.CalendarAdapter;
 
+import soup.neumorphism.NeumorphImageButton;
+
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private TextView titleText,tweetText;
     private CalendarAdapter mCalendarAdapter;
     private RelativeLayout beforeLayout;
-    private Integer id;
     private  View root,neumorphView;
     private  ViewGroup p;
     private boolean isNeumorphShow;
+    private NeumorphImageButton hashTagButton;
+    private int FLAT = 0,PRESSED = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class NotificationsFragment extends Fragment {
 
         /*----------------------------------------ボタンの処理-------------------------------------*/
         //「検索ボタン」
-        ImageButton searchButton = root.findViewById(R.id.button);
+        ImageButton searchButton = root.findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +87,30 @@ public class NotificationsFragment extends Fragment {
                 MainActivity.inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
             }
         });
+
+        //「＠」ボタン
+        NeumorphImageButton atButton = root.findViewById(R.id.atMarkButton);
+        atButton.setShapeType(PRESSED);
+        atButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                atButton.setShapeType(PRESSED);
+                hashTagButton.setShapeType(FLAT);
+                editText.setHint("search by ScreenName...");
+            }
+        });
+
+        //「＃」ボタン
+        hashTagButton = root.findViewById(R.id.hashTagButton);
+        hashTagButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                atButton.setShapeType(FLAT);
+                hashTagButton.setShapeType(PRESSED);
+                editText.setHint("search by ID...");
+            }
+        });
+
         //「＜」ボタン
         ImageButton prevButton = root.findViewById(R.id.prevButton);
         prevButton.setOnClickListener(new View.OnClickListener() {
