@@ -19,26 +19,53 @@
             android:id="@+id/neumorphSearchCardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="7.5"
             app:neumorph_lightSource="rightBottom">
 
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="272dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/search"
-                android:singleLine="true"
-                android:textColorHint="#454545"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <soup.neumorphism.NeumorphImageButton
+                    android:id="@+id/atMarkButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/at_line"
+                    android:background="#EDEDED"
+                    android:layout_weight="1.5"
+                    android:scaleType="centerInside"/>
+
+                <soup.neumorphism.NeumorphImageButton
+                    android:id="@+id/hashTagButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/hashtag"
+                    android:background="#EDEDED"
+                    android:layout_weight="1.5"
+                    android:scaleType="centerInside"/>
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/search"
+                    android:singleLine="true"
+                    android:textColorHint="#454545"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_weight="7"
+                    android:autofillHints="@string/search" />
+            </LinearLayout>
         </soup.neumorphism.NeumorphCardView>
 
         <soup.neumorphism.NeumorphImageButton
-            android:id="@+id/button"
+            android:id="@+id/searchButton"
             style="@style/Widget.Neumorph.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
+            android:layout_weight="2.5"
             android:scaleType="centerInside"
             android:src="@drawable/search_line" />
     </LinearLayout>
@@ -82,10 +109,8 @@
                 android:layout_marginBottom="30dp"
                 android:layout_toStartOf="@+id/nextButton"
                 android:background="#EDEDED"
-                android:gravity="center"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:src="@drawable/arrow_ios_back_outline"
-                android:textColor="#000000"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toStartOf="@+id/nextButton"
                 android:contentDescription="TODO" />
@@ -99,12 +124,8 @@
                 android:layout_marginEnd="19dp"
                 android:layout_marginBottom="30dp"
                 android:background="#EDEDED"
-                android:gravity="center"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:src="@drawable/arrow_ios_forward_outline"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent" />
 
