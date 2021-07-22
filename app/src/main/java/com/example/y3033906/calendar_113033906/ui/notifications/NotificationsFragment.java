@@ -13,6 +13,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -38,14 +39,15 @@ public class NotificationsFragment extends Fragment {
     private NeumorphImageButton hashTagButton;
     private final int FLAT = 0;
     private final int PRESSED = 1;
+    private Integer searchMode;
+    private final int SEARCH_BY_AT = 0;
+    private final int SEARCH_BY_ID = 1;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
-
-        //NotificationsFragment self = this;
-        FragmentActivity self = getActivity();
 
         //Fragmentを取得
         root = inflater.inflate(R.layout.fragment_notifications, container, false);
@@ -76,14 +78,21 @@ public class NotificationsFragment extends Fragment {
         /*----------------------------------------ボタンの処理-------------------------------------*/
         //「検索ボタン」
         ImageButton searchButton = root.findViewById(R.id.searchButton);
+        FragmentActivity self = getActivity();
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((SpannableStringBuilder)editText.getText() != null) {
+                //エラー処理
+                if(editText.getText().toString().equals("")) {
+                    Toast.makeText(MainActivity.context , "入力がありません", Toast.LENGTH_LONG).show();
+                }
+
+                else {
                     SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
                     String str = sb.toString();
-                    mCalendarAdapter.callTweetByScreenName(str,self);
+                    mCalendarAdapter.callTweetByScreenName(str, self);
                 }
+
                 //キーボードを消す
                 MainActivity.inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
             }
@@ -97,17 +106,20 @@ public class NotificationsFragment extends Fragment {
             public void onClick(View v) {
                 atButton.setShapeType(PRESSED);
                 hashTagButton.setShapeType(FLAT);
+                searchMode = SEARCH_BY_AT;
                 editText.setHint("search by ScreenName...");
             }
         });
 
         //「＃」ボタン
         hashTagButton = root.findViewById(R.id.hashTagButton);
+        searchMode = SEARCH_BY_ID;
         hashTagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 atButton.setShapeType(FLAT);
                 hashTagButton.setShapeType(PRESSED);
+                searchMode = SEARCH_BY_ID;
                 editText.setHint("search by ID...");
             }
         });
@@ -164,11 +176,12 @@ public class NotificationsFragment extends Fragment {
         }
 
         String string_TweetText = CalendarAdapter.getTweetFromView(view);
-
-        tweetText.setText(string_TweetText);
-
+        if(string_TweetText == null)
+            Toast.makeText(MainActivity.context , "検索されていません", Toast.LENGTH_LONG).show();
+        else {
+            tweetText.setText(string_TweetText);
+        }
         beforeLayout = (RelativeLayout) view;
     }
-
 
 }

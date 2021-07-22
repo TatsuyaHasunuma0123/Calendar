@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     static final String CONSUMER_ID = "5WGptOlaXuQjVWRzBAGxujlPy";
     static final String CONSUMER_SECRET = "o2KjptTGb5q0wSHvuWrcA9ixAdLQbdzwkx3lDTpCRjEFF4CUbU";
     private RequestToken _reqToken = null;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +37,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+        context = getApplicationContext();
     }
 }
