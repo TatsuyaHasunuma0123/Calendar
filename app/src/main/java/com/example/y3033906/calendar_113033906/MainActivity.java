@@ -12,15 +12,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import twitter4j.auth.RequestToken;
-
 public class MainActivity extends AppCompatActivity {
 
     public static InputMethodManager inputMethodManager;
-    static final String CALLBACK_URL = "callback://";
-    static final String CONSUMER_ID = "5WGptOlaXuQjVWRzBAGxujlPy";
-    static final String CONSUMER_SECRET = "o2KjptTGb5q0wSHvuWrcA9ixAdLQbdzwkx3lDTpCRjEFF4CUbU";
-    private RequestToken _reqToken = null;
     public static Context context;
 
     @Override
