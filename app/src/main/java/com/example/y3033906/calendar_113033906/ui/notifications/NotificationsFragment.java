@@ -202,7 +202,8 @@ public class NotificationsFragment extends Fragment {
         String string_TweetText = CalendarAdapter.getTweetFromView(view);
         if(string_TweetText == null) {
             Toast.makeText(MainActivity.context, "検索されていません", Toast.LENGTH_SHORT).show();
-            //p.removeView(neumorphView);
+            p.removeView(neumorphView);
+            isNeumorphShow = false;
         }
         else {
             tweetText.setText(string_TweetText);
