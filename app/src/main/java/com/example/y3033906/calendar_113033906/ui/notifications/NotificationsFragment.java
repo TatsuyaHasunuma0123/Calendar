@@ -31,12 +31,10 @@ import soup.neumorphism.NeumorphImageButton;
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
-    private TextView titleText,tweetText;
     private CalendarAdapter mCalendarAdapter;
     private RelativeLayout beforeLayout;
     private  View root,neumorphView;
     private  ViewGroup p;
-    private boolean isNeumorphShow;
     private NeumorphImageButton hashTagButton;
     private final int FLAT = 0;
     private final int PRESSED = 1;
@@ -53,23 +51,20 @@ public class NotificationsFragment extends Fragment {
         //Fragmentを取得
         root = inflater.inflate(R.layout.fragment_notifications, container, false);
         neumorphView = root.findViewById(R.id.neumorphTweetCardView);
-        p = (ViewGroup) neumorphView.getParent();
-        p.removeView(neumorphView);
-        isNeumorphShow = false;
+        neumorphView.setVisibility(View.INVISIBLE);
+//        p = (ViewGroup) neumorphView.getParent();
+//        p.removeView(neumorphView);
+//        isNeumorphShow = false;
 
         //タイトルテキスト(ex.「2021.July」の表示部)を取得
-        titleText = root.findViewById(R.id.titleText);
-
+        TextView titleText = root.findViewById(R.id.titleText);
 
         /*---------------------------------EditTextの処理設定--------------------------------------*/
         EditText editText = root.findViewById(R.id.editText);
         editText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(isNeumorphShow) {
-                    p.removeView(neumorphView);
-                    isNeumorphShow = false;
-                }
+                neumorphView.setVisibility(View.INVISIBLE);
                 return false;
             }
         });
@@ -157,14 +152,11 @@ public class NotificationsFragment extends Fragment {
         });
 
         //「×」ボタン
-        p.addView(neumorphView);
         NeumorphImageButton closeButton = root.findViewById(R.id.closeButton);
-        p.removeView(neumorphView);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                p.removeView(neumorphView);
-                isNeumorphShow = false;
+                neumorphView.setVisibility(View.INVISIBLE);
             }
         });
         /*----------------------------------------------------------------------------------------*/
@@ -192,21 +184,16 @@ public class NotificationsFragment extends Fragment {
             beforeLayout.getChildAt(1).setVisibility(View.VISIBLE);
         }
 
+        String tweet = CalendarAdapter.getTweetFromView(view);
 
-        if (!isNeumorphShow) {
-            p.addView(neumorphView);
-            isNeumorphShow = true;
-            tweetText = root.findViewById(R.id.tweetTextView);
-        }
-
-        String string_TweetText = CalendarAdapter.getTweetFromView(view);
-        if(string_TweetText == null) {
+        if(tweet == null) {
             Toast.makeText(MainActivity.context, "検索されていません", Toast.LENGTH_SHORT).show();
-            p.removeView(neumorphView);
-            isNeumorphShow = false;
+            neumorphView.setVisibility(View.INVISIBLE);
         }
         else {
-            tweetText.setText(string_TweetText);
+            neumorphView.setVisibility(View.VISIBLE);
+            TextView tweetText = root.findViewById(R.id.tweetTextView);
+            tweetText.setText(tweet);
         }
         beforeLayout = (RelativeLayout) view;
     }
