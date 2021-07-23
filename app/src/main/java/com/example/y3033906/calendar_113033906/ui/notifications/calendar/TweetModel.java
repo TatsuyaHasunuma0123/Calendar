@@ -1,5 +1,7 @@
 package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
 
+import android.app.ProgressDialog;
+
 import androidx.fragment.app.FragmentActivity;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +38,7 @@ public class TweetModel {
         }
     }
 
-    public static void getTweetByAttmark(String screenName, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment) {
+    public static void getTweetByAttmark(String screenName, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment, ProgressDialog progressDialog) {
         android.os.AsyncTask<Void, Void, String> task
                 = new android.os.AsyncTask<Void, Void, String>() {
             @Override
@@ -67,6 +69,7 @@ public class TweetModel {
                     notificationsFragment.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            progressDialog.dismiss();
                             calendarAdapter.notifyDataSetChanged();
                         }
                     });
@@ -80,7 +83,7 @@ public class TweetModel {
         task.execute();
     }
 
-    public static void getTweetByHashTag (String hashTag, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment){
+    public static void getTweetByHashTag (String hashTag, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment,ProgressDialog progressDialog){
         android.os.AsyncTask<Void, Void, String> task
                 = new android.os.AsyncTask<Void, Void, String>() {
             @Override

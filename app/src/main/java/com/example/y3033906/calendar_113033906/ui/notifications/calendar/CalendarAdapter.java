@@ -1,5 +1,6 @@
 package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -171,11 +172,11 @@ public class CalendarAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public void callTweetModel(String screenName, FragmentActivity notificationsFragment,Integer searchMode) {
+    public void callTweetModel(String screenName, FragmentActivity notificationsFragment, Integer searchMode, ProgressDialog progressDialog) {
         if(searchMode == SEARCH_BY_USER)
-            TweetModel.getTweetByAttmark(screenName,this,notificationsFragment);
+            TweetModel.getTweetByAttmark(screenName,this,notificationsFragment,progressDialog);
         else if(searchMode == SEARCH_BY_HASHTAG)
-            TweetModel.getTweetByHashTag(screenName,this,notificationsFragment);
+            TweetModel.getTweetByHashTag(screenName,this,notificationsFragment,progressDialog);
     }
 
     public static String getTweetFromView(View view) {

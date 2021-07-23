@@ -1,5 +1,6 @@
 package com.example.y3033906.calendar_113033906.ui.notifications;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.KeyEvent;
@@ -97,7 +98,12 @@ public class NotificationsFragment extends Fragment {
                 else {
                     SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
                     String str = sb.toString();
-                    mCalendarAdapter.callTweetModel(str, self, searchMode);
+                    ProgressDialog progressDialog = new ProgressDialog(requireContext());
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.setMessage("ツイート取得中...");
+                    progressDialog.show();
+                    mCalendarAdapter.callTweetModel(str, self, searchMode,progressDialog);
+
                 }
 
                 //キーボードを消す
