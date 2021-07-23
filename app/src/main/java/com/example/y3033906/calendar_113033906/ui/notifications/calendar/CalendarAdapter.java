@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.y3033906.calendar_113033906.R;
+import com.example.y3033906.calendar_113033906.ui.notifications.TweetModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,9 +27,6 @@ public class CalendarAdapter extends BaseAdapter {
     private final Context mContext;
     private final DateManager mDateManager;
     private final LayoutInflater mLayoutInflater;
-    private final int SEARCH_BY_USER = 0;
-    private final int SEARCH_BY_HASHTAG = 1;
-
 
     //カスタムセルを拡張したらここでWigetを定義
     public static class ViewHolder {
@@ -173,6 +171,8 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     public void callTweetModel(String screenName, FragmentActivity notificationsFragment, Integer searchMode, ProgressDialog progressDialog) {
+        int SEARCH_BY_USER = 0;
+        int SEARCH_BY_HASHTAG = 1;
         if(searchMode == SEARCH_BY_USER)
             TweetModel.getTweetByAttmark(screenName,this,notificationsFragment,progressDialog);
         else if(searchMode == SEARCH_BY_HASHTAG)

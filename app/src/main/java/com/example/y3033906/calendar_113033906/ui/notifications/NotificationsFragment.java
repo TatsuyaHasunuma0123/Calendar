@@ -20,7 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.y3033906.calendar_113033906.MainActivity;
 import com.example.y3033906.calendar_113033906.MyApplication;
@@ -31,11 +30,9 @@ import soup.neumorphism.NeumorphImageButton;
 
 public class NotificationsFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
     private CalendarAdapter mCalendarAdapter;
     private RelativeLayout beforeLayout;
     private  View root,neumorphView;
-    private  ViewGroup p;
     private NeumorphImageButton hashTagButton;
     private final int FLAT = 0;
     private final int PRESSED = 1;
@@ -46,16 +43,11 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
 
         //Fragmentを取得
         root = inflater.inflate(R.layout.fragment_notifications, container, false);
         neumorphView = root.findViewById(R.id.neumorphTweetCardView);
         neumorphView.setVisibility(View.INVISIBLE);
-//        p = (ViewGroup) neumorphView.getParent();
-//        p.removeView(neumorphView);
-//        isNeumorphShow = false;
 
         //タイトルテキスト(ex.「2021.July」の表示部)を取得
         TextView titleText = root.findViewById(R.id.titleText);

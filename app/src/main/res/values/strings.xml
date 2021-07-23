@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Calendar_113033906</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_calendar">TwitterCalendar</string>
     <string name="prev"><![CDATA[<]]></string>
     <string name="next"><![CDATA[>]]></string>
     <string name="Monday">Mo</string>

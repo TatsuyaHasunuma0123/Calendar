@@ -1,8 +1,10 @@
-package com.example.y3033906.calendar_113033906.ui.notifications.calendar;
+package com.example.y3033906.calendar_113033906.ui.notifications;
 
 import android.app.ProgressDialog;
 
 import androidx.fragment.app.FragmentActivity;
+
+import com.example.y3033906.calendar_113033906.ui.notifications.calendar.CalendarAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.y3033906.calendar_113033906.R;
 
@@ -36,22 +35,19 @@ import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    TextView textView,textView2;
+    TextView tweetView,translateView;
     Button button;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        textView = root.findViewById(R.id.textView);
-        textView.setBackgroundColor(Color.BLACK);
-        textView2 = root.findViewById(R.id.textView2);
-        textView2.setBackgroundColor(Color.BLACK);
+        tweetView = root.findViewById(R.id.textView);
+        tweetView.setBackgroundColor(Color.BLACK);
+        translateView = root.findViewById(R.id.textView2);
+        translateView.setBackgroundColor(Color.BLACK);
         button = root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 try {
@@ -61,44 +57,36 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
         return root;
     }
 
     public void httpRequest(String url) throws IOException{
-
         //OkHttpClinet生成
         OkHttpClient client = new OkHttpClient();
-
         //request生成
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Accept", "*/*")
                 .build();
-
         //非同期リクエスト
         client.newCall(request)
                 .enqueue(new Callback() {
-
                     //エラーのとき
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Log.e("Hoge",e.getMessage());
                     }
-
                     //正常のとき
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
                         //response取り出し
                         final String jsonStr = response.body().string();
-                        Log.d("Hoge","jsonStr=" + jsonStr);
-
                         //JSON処理
                         try{
                             //jsonパース
                             JSONObject json = new JSONObject(jsonStr);
                             final String value = json.getString("value");
+
+                            //valueを翻訳
                             translate(value);
 
                             //親スレッドUI更新
@@ -106,12 +94,12 @@ public class HomeFragment extends Fragment {
                             mainHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    textView.setText(value);
+                                    tweetView.setText(value);
                                 }
                             });
 
                         }catch(Exception e){
-                            Log.e("Hoge",e.getMessage());
+                            e.printStackTrace();
                         }
                     }
                 });
@@ -147,36 +135,26 @@ public class HomeFragment extends Fragment {
                     //エラーのとき
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Log.e("Hoge",e.getMessage());
                     }
 
                     //正常のとき
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
                         //response取り出し
                         final String jsonStr = response.body().string();
-                        Log.d("Hoge","jsonStr=" + jsonStr);
-
                         //JSON処理
                         try{
-                            //jsonパース
-                            //JSONObject json = new JSONObject(jsonStr);
-                            //final String value = json.getString("value");
-
-
                             //親スレッドUI更新
                             Handler mainHandler = new Handler(Looper.getMainLooper());
                             mainHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     System.out.println(jsonStr);
-                                    textView2.setText(jsonStr);
+                                    translateView.setText(jsonStr);
                                 }
                             });
-
                         }catch(Exception e){
-                            Log.e("Hoge",e.getMessage());
+                            e.printStackTrace();
                         }
                     }
                 });
