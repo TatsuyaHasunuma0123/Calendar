@@ -12,5 +12,5 @@
     <string name="Friday">Fr</string>
     <string name="Saturday">Sa</string>
     <string name="Sunday">Su</string>
-    <string name="search">search by ScreenName…</string>
+    <string name="search">search by User(@XXX)...</string>
 </resources>
