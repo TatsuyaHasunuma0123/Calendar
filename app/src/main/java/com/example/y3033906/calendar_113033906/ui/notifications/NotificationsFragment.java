@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -40,8 +41,8 @@ public class NotificationsFragment extends Fragment {
     private final int FLAT = 0;
     private final int PRESSED = 1;
     private Integer searchMode;
-    private final int SEARCH_BY_AT = 0;
-    private final int SEARCH_BY_ID = 1;
+    private final int SEARCH_BY_USER = 0;
+    private final int SEARCH_BY_HASHTAG = 1;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -62,8 +63,19 @@ public class NotificationsFragment extends Fragment {
 
         /*---------------------------------EditTextの処理設定--------------------------------------*/
         EditText editText = root.findViewById(R.id.editText);
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(isNeumorphShow) {
+                    p.removeView(neumorphView);
+                    isNeumorphShow = false;
+                }
+                return false;
+            }
+        });
 
         //https://www.itcowork.co.jp/blog/?p=864
+        //キーボードのEnterボタンでキーボードを画面から消す
         editText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event){
@@ -90,7 +102,7 @@ public class NotificationsFragment extends Fragment {
                 else {
                     SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
                     String str = sb.toString();
-                    mCalendarAdapter.callTweetByScreenName(str, self);
+                    mCalendarAdapter.callTweetModel(str, self,searchMode);
                 }
 
                 //キーボードを消す
@@ -101,26 +113,26 @@ public class NotificationsFragment extends Fragment {
         //「＠」ボタン
         NeumorphImageButton atButton = root.findViewById(R.id.atMarkButton);
         atButton.setShapeType(PRESSED);
+        searchMode = SEARCH_BY_USER;
         atButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 atButton.setShapeType(PRESSED);
                 hashTagButton.setShapeType(FLAT);
-                searchMode = SEARCH_BY_AT;
-                editText.setHint("search by ScreenName...");
+                searchMode = SEARCH_BY_USER;
+                editText.setHint("search by User(@XXX)...");
             }
         });
 
         //「＃」ボタン
         hashTagButton = root.findViewById(R.id.hashTagButton);
-        searchMode = SEARCH_BY_ID;
         hashTagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 atButton.setShapeType(FLAT);
                 hashTagButton.setShapeType(PRESSED);
-                searchMode = SEARCH_BY_ID;
-                editText.setHint("search by ID...");
+                searchMode = SEARCH_BY_HASHTAG;
+                editText.setHint("search by #...");
             }
         });
 
@@ -176,8 +188,10 @@ public class NotificationsFragment extends Fragment {
         }
 
         String string_TweetText = CalendarAdapter.getTweetFromView(view);
-        if(string_TweetText == null)
-            Toast.makeText(MainActivity.context , "検索されていません", Toast.LENGTH_LONG).show();
+        if(string_TweetText == null) {
+            Toast.makeText(MainActivity.context, "検索されていません", Toast.LENGTH_SHORT).show();
+            //p.removeView(neumorphView);
+        }
         else {
             tweetText.setText(string_TweetText);
         }

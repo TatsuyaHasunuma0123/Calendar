@@ -34,7 +34,7 @@ public class TweetModel {
         }
     }
 
-    public static void getTweetById(String screenName, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment) {
+    public static void getTweetByAttmark(String screenName, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment) {
         android.os.AsyncTask<Void, Void, String> task
                 = new android.os.AsyncTask<Void, Void, String>() {
             @Override
@@ -70,7 +70,9 @@ public class TweetModel {
             }
         };
         task.execute();
+    }
 
+    public static void getTweetByHashTag(String hashTag, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment){
     }
 
     public static String getTweetByCalendarDate(String strDate) {
@@ -84,7 +86,6 @@ public class TweetModel {
         return  null;
     }
 
-    public static void getTweetByHashTag(String hashTag){
-    }
+
 
 }

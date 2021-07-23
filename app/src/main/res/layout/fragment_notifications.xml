@@ -8,10 +8,10 @@
     tools:context=".ui.notifications.NotificationsFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/flat_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,31 +30,31 @@
                     android:id="@+id/atMarkButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/at_line"
-                    android:background="#EDEDED"
                     android:layout_weight="1.5"
-                    android:scaleType="centerInside"/>
+                    android:background="#EDEDED"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/at_line" />
 
                 <soup.neumorphism.NeumorphImageButton
                     android:id="@+id/hashTagButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/hashtag"
-                    android:background="#EDEDED"
                     android:layout_weight="1.5"
-                    android:scaleType="centerInside"/>
+                    android:background="#EDEDED"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/hashtag" />
 
                 <EditText
                     android:id="@+id/editText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:autofillHints="@string/search"
                     android:hint="@string/search"
                     android:singleLine="true"
                     android:textColorHint="#454545"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_weight="7"
-                    android:autofillHints="@string/search" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
         </soup.neumorphism.NeumorphCardView>
 
@@ -70,206 +70,226 @@
             android:src="@drawable/search_line" />
     </LinearLayout>
 
-    <soup.neumorphism.NeumorphCardView
-        android:id="@+id/flat_card"
-        style="@style/Widget.Neumorph.CardView"
+
+
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="550dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/titleText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="32dp"
-                android:layout_toStartOf="@+id/prevButton"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/prevButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/prevButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_marginVertical="10dp"
-                android:layout_marginEnd="19dp"
-                android:layout_marginBottom="30dp"
-                android:layout_toStartOf="@+id/nextButton"
-                android:background="#EDEDED"
-                android:scaleType="centerInside"
-                android:src="@drawable/arrow_ios_back_outline"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-                app:layout_constraintEnd_toStartOf="@+id/nextButton"
-                android:contentDescription="TODO" />
-
-            <ImageButton
-                android:id="@+id/nextButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginVertical="10dp"
-                android:layout_marginEnd="19dp"
-                android:layout_marginBottom="30dp"
-                android:background="#EDEDED"
-                android:scaleType="centerInside"
-                android:src="@drawable/arrow_ios_forward_outline"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/titleText"
-                app:layout_constraintBottom_toTopOf="@+id/calendarGridView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_weight="1"
-                    android:background="#EDEDED"
-                    android:gravity="center"
-                    android:text="@string/Monday"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="1dp"
-                    android:layout_weight="1"
-                    android:background="#EDEDED"
-                    android:gravity="center"
-                    android:text="@string/Tuesday"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="1dp"
-                    android:layout_weight="1"
-                    android:background="#EDEDED"
-                    android:gravity="center"
-                    android:text="@string/Wednesday"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="1dp"
-                    android:layout_weight="1"
-                    android:background="#EDEDED"
-                    android:gravity="center"
-                    android:text="@string/Thursday"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="1dp"
-                    android:layout_weight="1"
-                    android:background="#EDEDED"
-                    android:gravity="center"
-                    android:text="@string/Friday"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="1dp"
-                    android:layout_weight="1"
-                    android:background="#EDEDED"
-                    android:gravity="center"
-                    android:text="@string/Saturday"
-                    android:textAlignment="center"
-                    android:textColor="@color/blueColor"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#EDEDED"
-                    android:gravity="center"
-                    android:text="@string/Sunday"
-                    android:textAlignment="center"
-                    android:textColor="@color/redColor"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <GridView
-                android:id="@+id/calendarGridView"
-                android:layout_width="wrap_content"
-                android:layout_height="500dp"
-                android:layout_marginTop="250dp"
-                android:horizontalSpacing="1dp"
-                android:numColumns="7"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </soup.neumorphism.NeumorphCardView>
-
-    <soup.neumorphism.NeumorphCardView
-        android:id="@+id/neumorphTweetCardView"
-        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flat_card">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
-        <TextView
-            android:id="@+id/tweetTextView"
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/flat_card"
+            style="@style/Widget.Neumorph.CardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:singleLine="false"
-            android:textColor="#000000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </soup.neumorphism.NeumorphCardView>
+            android:layout_height="0dp"
+            android:layout_weight="7.5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/titleText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_toStartOf="@+id/prevButton"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/prevButton"
+                        android:layout_width="60dp"
+                        android:layout_height="50dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="19dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_toStartOf="@+id/nextButton"
+                        android:background="#EDEDED"
+                        android:contentDescription="TODO"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/arrow_ios_back_outline"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/nextButton"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/nextButton"
+                        android:layout_width="60dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="19dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="#EDEDED"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/arrow_ios_forward_outline"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/calendarGridView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="1dp"
+                        android:layout_weight="1"
+                        android:background="#EDEDED"
+                        android:gravity="center"
+                        android:text="@string/Monday"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="1"
+                        android:background="#EDEDED"
+                        android:gravity="center"
+                        android:text="@string/Tuesday"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="1"
+                        android:background="#EDEDED"
+                        android:gravity="center"
+                        android:text="@string/Wednesday"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="1"
+                        android:background="#EDEDED"
+                        android:gravity="center"
+                        android:text="@string/Thursday"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="1"
+                        android:background="#EDEDED"
+                        android:gravity="center"
+                        android:text="@string/Friday"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="1"
+                        android:background="#EDEDED"
+                        android:gravity="center"
+                        android:text="@string/Saturday"
+                        android:textAlignment="center"
+                        android:textColor="@color/blueColor"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#EDEDED"
+                        android:gravity="center"
+                        android:text="@string/Sunday"
+                        android:textAlignment="center"
+                        android:textColor="@color/redColor"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <GridView
+                    android:id="@+id/calendarGridView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:horizontalSpacing="1dp"
+                    android:numColumns="7"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphTweetCardView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5">
+
+            <TextView
+                android:id="@+id/tweetTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:singleLine="false"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </soup.neumorphism.NeumorphCardView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

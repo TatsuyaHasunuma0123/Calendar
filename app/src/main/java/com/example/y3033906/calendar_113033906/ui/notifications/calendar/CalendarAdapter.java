@@ -25,6 +25,8 @@ public class CalendarAdapter extends BaseAdapter {
     private final Context mContext;
     private final DateManager mDateManager;
     private final LayoutInflater mLayoutInflater;
+    private final int SEARCH_BY_USER = 0;
+    private final int SEARCH_BY_HASHTAG = 1;
 
 
     //カスタムセルを拡張したらここでWigetを定義
@@ -167,8 +169,11 @@ public class CalendarAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public void callTweetByScreenName(String screenName, FragmentActivity notificationsFragment) {
-        TweetModel.getTweetById(screenName,this,notificationsFragment);
+    public void callTweetModel(String screenName, FragmentActivity notificationsFragment,Integer searchMode) {
+        if(searchMode == SEARCH_BY_USER)
+            TweetModel.getTweetByAttmark(screenName,this,notificationsFragment);
+        else if(searchMode == SEARCH_BY_HASHTAG)
+            TweetModel.getTweetByHashTag(screenName,this,notificationsFragment);
     }
 
     public static String getTweetFromView(View view) {
