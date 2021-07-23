@@ -18,7 +18,7 @@ import twitter4j.User;
 public class TweetModel {
     private static User user;
 
-    public static Tweet[] tweets = new Tweet[100];
+    public static Tweet[] tweets = new Tweet[1500];
 
     public static class Tweet{
         //ツイートの内容
@@ -28,7 +28,7 @@ public class TweetModel {
         //ツイートの日時
         public Date date;
 
-        public static Tweet[] tweets = new Tweet[100];
+        public static Tweet[] tweets = new Tweet[1500];
         Tweet(String tweet, String user,Date date){
             this.tweet = tweet;
             this.user = user;
@@ -51,11 +51,17 @@ public class TweetModel {
                 twitter = new TwitterFactory().getInstance();
                 int i = 0;
                 try {
-                    ResponseList<twitter4j.Status> userStatus = twitter.getUserTimeline(user.getId(), new Paging(1, 100));
-                    for (twitter4j.Status status : userStatus) {
-                        tweets[i] = new Tweet(status.getText(), status.getUser().getName(), status.getCreatedAt());
-                        i++;
+                    for(int j = 0; j < 15; j++) {
+                        ResponseList<twitter4j.Status> userStatus = twitter.getUserTimeline(user.getId(), new Paging(j+1, 100));
+                        for (twitter4j.Status status : userStatus) {
+                            tweets[i] = new Tweet(status.getText(), status.getUser().getName(), status.getCreatedAt());
+                            i++;
+                        }
+
                     }
+
+                    System.out.println(tweets[0].tweet);
+                    System.out.println(tweets[100].tweet);
 
                     //UI変更のため、メインスレッドでの動作を行う。
                     notificationsFragment.runOnUiThread(new Runnable() {
@@ -82,16 +88,28 @@ public class TweetModel {
                 Twitter twitter = TwitterFactory.getSingleton();
                 Query query = new Query("#" + hashTag);
                 query.count(100);
+                query.resultType(Query.RECENT);
                 int i=0;
                 try {
-                    QueryResult result = twitter.search(query);
 
-                    for(twitter4j.Status status : result.getTweets()){
-                        tweets[i] = new Tweet(status.getText(), status.getUser().getName(),status.getCreatedAt());
-                        System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
-                        i++;
+                    for(int j = 0; j < 15; j++) {
+                        QueryResult result = twitter.search(query);
+                        for (twitter4j.Status status : result.getTweets()) {
+                            tweets[i] = new Tweet(status.getText(), status.getUser().getName(), status.getCreatedAt());
+                            System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
+                            i++;
+                        }
+
+                        //最大クエリ数取得したら次のページへ
+                        if(result.hasNext())
+                            query = result.nextQuery();
+                        else
+                            break;
                     }
+
                     System.out.println(tweets[0].tweet);
+                    System.out.println(tweets[100].tweet);
+
                     //UI変更のため、メインスレッドでの動作を行う。
                     notificationsFragment.runOnUiThread(new Runnable() {
                         @Override
@@ -110,7 +128,7 @@ public class TweetModel {
 
     public static String getTweetByCalendarDate(String strDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/d", Locale.US);
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 1500; i++){
             if(tweets[i] == null)
                 return null;
             else if(dateFormat.format(tweets[i].date).equals(strDate))
