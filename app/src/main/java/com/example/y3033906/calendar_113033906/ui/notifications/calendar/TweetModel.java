@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import twitter4j.Paging;
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.ResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -72,7 +74,38 @@ public class TweetModel {
         task.execute();
     }
 
-    public static void getTweetByHashTag(String hashTag, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment){
+    public static void getTweetByHashTag (String hashTag, CalendarAdapter calendarAdapter, FragmentActivity notificationsFragment){
+        android.os.AsyncTask<Void, Void, String> task
+                = new android.os.AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                Twitter twitter = TwitterFactory.getSingleton();
+                Query query = new Query("#" + hashTag);
+                query.count(100);
+                int i=0;
+                try {
+                    QueryResult result = twitter.search(query);
+
+                    for(twitter4j.Status status : result.getTweets()){
+                        tweets[i] = new Tweet(status.getText(), status.getUser().getName(),status.getCreatedAt());
+                        System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
+                        i++;
+                    }
+                    System.out.println(tweets[0].tweet);
+                    //UI変更のため、メインスレッドでの動作を行う。
+                    notificationsFragment.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            calendarAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } catch (TwitterException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+        task.execute();
     }
 
     public static String getTweetByCalendarDate(String strDate) {
@@ -85,7 +118,4 @@ public class TweetModel {
         }
         return  null;
     }
-
-
-
 }

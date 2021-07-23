@@ -97,7 +97,7 @@ public class NotificationsFragment extends Fragment {
                 else {
                     SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
                     String str = sb.toString();
-                    mCalendarAdapter.callTweetModel(str, self,searchMode);
+                    mCalendarAdapter.callTweetModel(str, self, searchMode);
                 }
 
                 //キーボードを消す

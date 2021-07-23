@@ -100,13 +100,15 @@ public class CalendarAdapter extends BaseAdapter {
             if (TweetModel.tweets[0] != null) {
                 //tweetsクラスの長さの文繰り返す
                 for (int i = 0; i < TweetModel.tweets.length; i++) {
-                    if (compareFormat.format(TweetModel.tweets[i].date).compareTo(compareFormat.format(dateArray.get(position))) == 0) {
-                        //一番上にあるnormalLayerDateTextを透過させ、flatNewMorphViewが見えるようにする。
-                        holder.normalLayerDateText.setVisibility(View.GONE);
-                        //背景を実際のツイッターの青色に設定
-                        holder.flatNewMorphView.setBackgroundColor(Color.parseColor("#00ACEE"));
-                        //日付が押された時に見える背景は上の青色よりも少し暗めに設定
-                        holder.pressedNewMorphView.setBackgroundColor(Color.parseColor("#267CA7"));
+                    if(TweetModel.tweets[i] != null) {
+                        if (compareFormat.format(TweetModel.tweets[i].date).compareTo(compareFormat.format(dateArray.get(position))) == 0) {
+                            //一番上にあるnormalLayerDateTextを透過させ、flatNewMorphViewが見えるようにする。
+                            holder.normalLayerDateText.setVisibility(View.GONE);
+                            //背景を実際のツイッターの青色に設定
+                            holder.flatNewMorphView.setBackgroundColor(Color.parseColor("#00ACEE"));
+                            //日付が押された時に見える背景は上の青色よりも少し暗めに設定
+                            holder.pressedNewMorphView.setBackgroundColor(Color.parseColor("#267CA7"));
+                        }
                     }
                 }
             }
