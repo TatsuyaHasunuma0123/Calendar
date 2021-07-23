@@ -17,9 +17,9 @@
 
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/neumorphSearchCardView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7.5"
+            android:layout_weight="8.5"
             app:neumorph_lightSource="rightBottom">
 
             <LinearLayout
@@ -28,20 +28,22 @@
 
                 <soup.neumorphism.NeumorphImageButton
                     android:id="@+id/atMarkButton"
+                    style="@style/Widget.Neumorph.Button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.5"
                     android:background="#EDEDED"
-                    android:scaleType="centerInside"
+                    android:scaleType="center"
                     android:src="@drawable/at_line" />
 
                 <soup.neumorphism.NeumorphImageButton
                     android:id="@+id/hashTagButton"
+                    style="@style/Widget.Neumorph.Button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.5"
                     android:background="#EDEDED"
-                    android:scaleType="centerInside"
+                    android:scaleType="center"
                     android:src="@drawable/hashtag" />
 
                 <EditText
@@ -65,7 +67,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
-            android:layout_weight="2.5"
+            android:layout_weight="1.5"
             android:scaleType="centerInside"
             android:src="@drawable/search_line" />
     </LinearLayout>
@@ -277,18 +279,38 @@
             android:layout_height="0dp"
             android:layout_weight="2.5">
 
-            <TextView
-                android:id="@+id/tweetTextView"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:singleLine="false"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tweetTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="12dp"
+                    android:singleLine="false"
+                    android:textColor="#000000"
+                    app:layout_constraintEnd_toStartOf="@+id/closeButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <soup.neumorphism.NeumorphImageButton
+                    android:id="@+id/closeButton"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:scaleType="center"
+                    android:src="@drawable/close_circle_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </soup.neumorphism.NeumorphCardView>
     </LinearLayout>
 

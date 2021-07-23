@@ -155,6 +155,18 @@ public class NotificationsFragment extends Fragment {
                 titleText.setText(mCalendarAdapter.getTitle());
             }
         });
+
+        //「×」ボタン
+        p.addView(neumorphView);
+        NeumorphImageButton closeButton = root.findViewById(R.id.closeButton);
+        p.removeView(neumorphView);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                p.removeView(neumorphView);
+                isNeumorphShow = false;
+            }
+        });
         /*----------------------------------------------------------------------------------------*/
 
         //カレンダーの表示
